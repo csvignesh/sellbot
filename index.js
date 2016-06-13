@@ -18,6 +18,15 @@ app.get('/', function(req, res) {
     });
 });
 
+// webhook
+app.get('/webhook', function (req, res) {
+    if (req.query['hub.verify_token'] === 'this_is_my_token_verify_me') {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.send('Error, wrong validation token');
+    }
+});
+
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
