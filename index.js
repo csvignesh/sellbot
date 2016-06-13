@@ -1,16 +1,23 @@
-var http = require('http');
-var express = require("express");
 
+var express = require('express');
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
-app.use(express.logger());
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
 
-app.get('/', function(request, response) {
-    console.log('[support dash] processing get request')
-    response.send('Hello World 2!');
+// make express look in the public directory for assets (css/js/img)
+app.use(express.static(__dirname + '/public'));
+
+// set the home page route
+app.get('/', function(req, res) {
+
+    // ejs render automatically looks in the views folder
+    res.json({
+        success: 1
+    });
 });
 
-app.listen(process.env.PORT, function () {
-    console.log('***** exp listening on port: ' + process.env.PORT);
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
 });
