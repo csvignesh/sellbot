@@ -1,16 +1,16 @@
-var express = require('express');
-var https = require('https');
 var http = require('http');
+var express = require("express");
+
 var app = express();
 
-http.createServer(app).listen(80);
-https.createServer(app).listen(443);
+app.set('port', process.env.PORT || 3000);
+app.use(express.logger());
 
-app.listen = function() {
-    var server = http.createServer(this);
-    return server.listen.apply(server, arguments);
-};
+app.get('/', function(request, response) {
+    console.log('[support dash] processing get request')
+    response.send('Hello World 2!');
+});
 
-app.get('/', function (req, res) {
-    res.send('GET request to homepage');
+app.listen(process.env.PORT, function () {
+    console.log('***** exp listening on port: ' + process.env.PORT);
 });
