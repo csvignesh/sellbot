@@ -31,6 +31,23 @@ app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 
+const findOrCreateSession = (fbid) => {
+  let sessionId;
+  // Let's see if we already have a session for the user fbid
+  Object.keys(sessions).forEach(k => {
+    if (sessions[k].fbid === fbid) {
+      // Yep, got it!
+      sessionId = k;
+    }
+  });
+  if (!sessionId) {
+    // No session found for user fbid, let's create a new one
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {fbid: fbid, context: {}};
+  }
+  return sessionId;
+};
+
 // Our bot actions
 const actions = {
   say(sessionId, context, message, cb) {
@@ -113,6 +130,19 @@ app.get('/webhook', function(req, res) {
   }  
 });
 
+const getFirstMessagingEntry = (body) => {
+  const val = body.object == 'page' &&
+          body.entry &&
+          Array.isArray(body.entry) &&
+          body.entry.length > 0 &&
+          body.entry[0] &&
+          body.entry[0].messaging &&
+          Array.isArray(body.entry[0].messaging) &&
+          body.entry[0].messaging.length > 0 &&
+          body.entry[0].messaging[0]
+      ;
+  return val || null;
+};
 
 /*
  * All callbacks for Messenger are POST-ed. They will be sent to the same
@@ -127,6 +157,14 @@ app.post('/webhook', function (req, res) {
 
   // Make sure this is a page subscription
   if (data.object == 'page') {
+    const messaging = getFirstMessagingEntry(req.body);
+    // We retrieve the Facebook user ID of the sender
+    const sender = messaging.sender.id;
+
+    // We retrieve the user's current session, or create one if it doesn't exist
+    // This is needed for our bot to figure out the conversation history
+    const sessionId = findOrCreateSession(sender);
+
     // Iterate over each entry
     // There may be multiple if batched
     data.entry.forEach(function(pageEntry) {
@@ -138,7 +176,7 @@ app.post('/webhook', function (req, res) {
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
-          receivedMessage(messagingEvent);
+          receivedMessage(messagingEvent, sessionId);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
@@ -231,7 +269,7 @@ function receivedAuthentication(event) {
  * then we'll simply confirm that we've received the attachment.
  * 
  */
-function receivedMessage(event) {
+function receivedMessage(event, sessionId) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
@@ -271,7 +309,7 @@ function receivedMessage(event) {
         break;
 
       default:
-        sendTextMessage(senderID, messageText);
+        sendTextMessage(senderID, messageText, sessionId);
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
@@ -356,13 +394,13 @@ function sendImageMessage(recipientId) {
  * Send a text message using the Send API.
  *
  */
-function sendTextMessage(recipientId, messageText) {
+function sendTextMessage(recipientId, messageText, sessionId) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
-      text: messageText
+      text: messageText + ' ' + sessionId
     }
   };
 
