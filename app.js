@@ -27,8 +27,6 @@ const WIT_TOKEN = 'B6BL22M6SNSZ6Y5JQKCMREO247SJMEVU';
 
 const sessions = {};
 
-const wit = new Wit(WIT_TOKEN, actions);
-
 app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
@@ -70,6 +68,8 @@ const actions = {
   // You should implement your custom actions here
   // See https://wit.ai/docs/quickstart
 };
+
+const wit = new Wit(WIT_TOKEN, actions);
 
 /*
  * Be sure to setup your config values before running this code. You can 
