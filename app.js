@@ -180,12 +180,18 @@ app.post('/webhook', function (req, res) {
         //});
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
+          res.sendStatus(200);
         } else if (messagingEvent.message) {
-          receivedMessage(messagingEvent, sessionId);
+          runWit(event.message.text, (context) => {
+            receivedMessage(messagingEvent, sessionId);
+            res.sendStatus(200);
+          });
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
+          res.sendStatus(200);
         } else if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
+          res.sendStatus(200);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
@@ -196,7 +202,6 @@ app.post('/webhook', function (req, res) {
     //
     // You must send back a 200, within 20 seconds, to let us know you've 
     // successfully received the callback. Otherwise, the request will time out.
-    res.sendStatus(200);
   }
 });
 
