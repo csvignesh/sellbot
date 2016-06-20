@@ -175,21 +175,22 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
 
-        runWit(msg, (messageText) => {
-          sendTextMessage(sender, messageText, sessionId);
-          res.sendStatus(200);
-        });
-        //if (messagingEvent.optin) {
-        //  receivedAuthentication(messagingEvent);
-        //} else if (messagingEvent.message) {
-        //  receivedMessage(messagingEvent, sessionId);
-        //} else if (messagingEvent.delivery) {
-        //  receivedDeliveryConfirmation(messagingEvent);
-        //} else if (messagingEvent.postback) {
-        //  receivedPostback(messagingEvent);
-        //} else {
-        //  console.log("Webhook received unknown messagingEvent: ", messagingEvent);
-        //}
+
+        if (messagingEvent.optin) {
+          receivedAuthentication(messagingEvent);
+        } else if (messagingEvent.message) {
+          runWit(msg, (messageText) => {
+            sendTextMessage(sender, messageText, sessionId);
+            res.sendStatus(200);
+          });
+          //receivedMessage(messagingEvent, sessionId);
+        } else if (messagingEvent.delivery) {
+          receivedDeliveryConfirmation(messagingEvent);
+        } else if (messagingEvent.postback) {
+          receivedPostback(messagingEvent);
+        } else {
+          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+        }
       });
     });
 
