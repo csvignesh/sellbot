@@ -236,7 +236,7 @@ function callSendAPI(messageData) {
 }
 
 // Message handler
-app.post('/fb', (req, res) => {
+app.post('/webhook', (req, res) => {
     var data = req.body;
 
     // Make sure this is a page subscription
