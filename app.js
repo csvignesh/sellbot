@@ -400,7 +400,7 @@ function sendTextMessage(recipientId, messageText, sessionId) {
       id: recipientId
     },
     message: {
-      text: messageText + ' ' + sessionId
+      text: messageText + ' ' + sessionId + ' ' + recipientId
     }
   };
 
