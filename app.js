@@ -180,15 +180,18 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
           res.sendStatus(200);
         } else if (messagingEvent.message) {
-          runWit(msg, (messageText) => {
-            sendTextMessage(sender, messageText, sessionId);
-            res.sendStatus(200);
-          });
-          //receivedMessage(messagingEvent, sessionId);
+          //runWit(msg, (messageText) => {
+          //  sendTextMessage(sender, messageText, sessionId);
+          //  res.sendStatus(200);
+          //});
+          receivedMessage(messagingEvent, sessionId);
+          res.sendStatus(200);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
+          res.sendStatus(200);
         } else if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
+          res.sendStatus(200);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
