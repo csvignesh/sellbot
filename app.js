@@ -170,20 +170,26 @@ app.post('/webhook', function (req, res) {
     data.entry.forEach(function(pageEntry) {
       var pageID = pageEntry.id;
       var timeOfEvent = pageEntry.time;
+      const msg = messaging.message.text;
 
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
-        if (messagingEvent.optin) {
-          receivedAuthentication(messagingEvent);
-        } else if (messagingEvent.message) {
-          receivedMessage(messagingEvent, sessionId);
-        } else if (messagingEvent.delivery) {
-          receivedDeliveryConfirmation(messagingEvent);
-        } else if (messagingEvent.postback) {
-          receivedPostback(messagingEvent);
-        } else {
-          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
-        }
+
+        runWit(msg, (messageText) => {
+          sendTextMessage(sender, messageText, sessionId);
+          res.sendStatus(200);
+        });
+        //if (messagingEvent.optin) {
+        //  receivedAuthentication(messagingEvent);
+        //} else if (messagingEvent.message) {
+        //  receivedMessage(messagingEvent, sessionId);
+        //} else if (messagingEvent.delivery) {
+        //  receivedDeliveryConfirmation(messagingEvent);
+        //} else if (messagingEvent.postback) {
+        //  receivedPostback(messagingEvent);
+        //} else {
+        //  console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+        //}
       });
     });
 
@@ -191,9 +197,37 @@ app.post('/webhook', function (req, res) {
     //
     // You must send back a 200, within 20 seconds, to let us know you've 
     // successfully received the callback. Otherwise, the request will time out.
-    res.sendStatus(200);
+    //res.sendStatus(200);
   }
 });
+
+function runWit(msg, cb) {
+  wit.runActions(
+      sessionId, // the user's current session
+      msg, // the user's message
+      sessions[sessionId].context, // the user's current session state
+      (error, context) => {
+        if (error) {
+          console.log('Oops! Got an error from Wit:', error);
+        } else {
+          // Our bot did everything it has to do.
+          // Now it's waiting for further messages to proceed.
+          console.log('Waiting for further messages.');
+
+          // Based on the session state, you might want to reset the session.
+          // This depends heavily on the business logic of your bot.
+          // Example:
+          // if (context['done']) {
+          //   delete sessions[sessionId];
+          // }
+
+          // Updating the user's current session state
+          sessions[sessionId].context = context;
+          cb(context);
+        }
+      }
+  );
+}
 
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 
