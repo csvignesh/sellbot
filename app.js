@@ -178,6 +178,7 @@ app.post('/webhook', function (req, res) {
 
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
+          res.sendStatus(200);
         } else if (messagingEvent.message) {
           runWit(msg, (messageText) => {
             sendTextMessage(sender, messageText, sessionId);
