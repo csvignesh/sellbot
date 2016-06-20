@@ -170,28 +170,22 @@ app.post('/webhook', function (req, res) {
     data.entry.forEach(function(pageEntry) {
       var pageID = pageEntry.id;
       var timeOfEvent = pageEntry.time;
-      const msg = messaging.message.text;
 
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
 
-
+        //runWit(msg, (messageText) => {
+        //  sendTextMessage(sender, messageText, sessionId);
+        //  res.sendStatus(200);
+        //});
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
-          res.sendStatus(200);
         } else if (messagingEvent.message) {
-          //runWit(msg, (messageText) => {
-          //  sendTextMessage(sender, messageText, sessionId);
-          //  res.sendStatus(200);
-          //});
           receivedMessage(messagingEvent, sessionId);
-          res.sendStatus(200);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
-          res.sendStatus(200);
         } else if (messagingEvent.postback) {
           receivedPostback(messagingEvent);
-          res.sendStatus(200);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
@@ -202,11 +196,11 @@ app.post('/webhook', function (req, res) {
     //
     // You must send back a 200, within 20 seconds, to let us know you've 
     // successfully received the callback. Otherwise, the request will time out.
-    //res.sendStatus(200);
+    res.sendStatus(200);
   }
 });
 
-function runWit(msg, cb, sessionId) {
+function runWit(msg, cb) {
   wit.runActions(
       sessionId, // the user's current session
       msg, // the user's message
