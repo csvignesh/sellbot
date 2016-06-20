@@ -169,8 +169,81 @@ app.get('/test', (req, res) => {
     });
 });
 
+function sendTextMessage(recipientId, messageText) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            text: messageText
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+function receivedMessage(event) {
+    var senderID = event.sender.id;
+    var message = event.message;
+
+    // You may get a text or attachment but not both
+    var messageText = message.text;
+
+    sendTextMessage(senderID, messageText);
+}
+
+function callSendAPI(messageData) {
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: PAGE_ACCESS_TOKEN },
+        method: 'POST',
+        json: messageData
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var recipientId = body.recipient_id;
+            var messageId = body.message_id;
+
+            console.log("Successfully sent generic message with id %s to recipient %s",
+                messageId, recipientId);
+        } else {
+            console.error("Unable to send message.");
+            console.error(response);
+            console.error(error);
+        }
+    });
+}
+
 // Message handler
 app.post('/fb', (req, res) => {
+    var data = req.body;
+
+    // Make sure this is a page subscription
+    if (data.object == 'page') {
+        // Iterate over each entry
+        // There may be multiple if batched
+        data.entry.forEach(function(pageEntry) {
+            var pageID = pageEntry.id;
+            var timeOfEvent = pageEntry.time;
+
+            // Iterate over each messaging event
+            pageEntry.messaging.forEach(function(messagingEvent) {
+                if (messagingEvent.message) {
+                    receivedMessage(messagingEvent);
+                }
+            });
+        });
+
+        // Assume all went well.
+        //
+        // You must send back a 200, within 20 seconds, to let us know you've
+        // successfully received the callback. Otherwise, the request will time out.
+        res.sendStatus(200);
+    }
+
+    return;
+
+
     // Parsing the Messenger API response
     const messaging = getFirstMessagingEntry(req.body);
     if (messaging && messaging.message) {
