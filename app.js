@@ -202,7 +202,7 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-function runWit(msg, cb) {
+function runWit(msg, cb, sessionId) {
   wit.runActions(
       sessionId, // the user's current session
       msg, // the user's message
