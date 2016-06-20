@@ -4,7 +4,7 @@
   "description": "Get started example for Messenger Platform",
   "main": "messenger.js",
   "scripts": {
-    "start": "node messenger.js",
+    "start": "node app.js",
     "lint": "jshint --exclude-path=.gitignore .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
