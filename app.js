@@ -57,19 +57,20 @@ const actions = {
     if (recipientId) {
       // Yay, we found our recipient!
       // Let's forward our bot response to her.
-      fbMessage(recipientId, message, (err, data) => {
-        if (err) {
-          console.log(
-              'Oops! An error occurred while forwarding the response to',
-              recipientId,
-              ':',
-              err
-          );
-        }
-
-        // Let's give the wheel back to our bot
-        cb();
-      });
+      //fbMessage(recipientId, message, (err, data) => {
+      //  if (err) {
+      //    console.log(
+      //        'Oops! An error occurred while forwarding the response to',
+      //        recipientId,
+      //        ':',
+      //        err
+      //    );
+      //  }
+      //
+      //  // Let's give the wheel back to our bot
+      //  cb(data);
+      //});
+      cb();
     } else {
       console.log('Oops! Couldn\'t find user for session:', sessionId);
       // Giving the wheel back to our bot
@@ -166,8 +167,8 @@ app.get('/webhook', function(req, res) {
 });
 
 app.get('/t', function(req, res) {
-  sessions[req.query.id] = {context: {}};
-  runWit(req.query.txt, req.query.id, (context) => {
+  var sessionId = findOrCreateSession(req.query.id);
+  runWit(req.query.txt, sessionId, (context) => {
     res.json(context);
   });
 });
