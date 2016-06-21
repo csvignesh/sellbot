@@ -79,11 +79,46 @@ const actions = {
   merge(sessionId, context, entities, message, cb) {
     cb(context);
   },
-  error(sessionId, context, error) {
-    console.log(error.message);
+  error(sessionId, context, err) {
+    console.log(err.message);
+  },
+  ['fetch-topaspect'](sessionId, context, cb) {
+    // Here should go the api call, e.g.:
+    // context.forecast = apiCall(context.loc)
+    context.topAspect = 'Brand';
+    cb(context);
+  },
+  ['fetch-category'](sessionId, context, cb) {
+    var smacresponse = {
+        categories: [
+          {
+            categoryPath: [{
+              categoryName:'1'
+            }, {
+              categoryName: '2'
+            }, {
+              categoryName: '3'
+            }]
+          }
+        ]
+    };
+    var categories = smacresponse.categories;
+    if(categories.length == 1) {
+      var categoryPath = categories[0].categoryPath;
+      var cateogryPathLength = categoryPath.length;
+      context.category = categoryPath[cateogryPathLength-1].categoryName + " " + categoryPath[cateogryPathLength-2].categoryName + " cateogry"
+    }
+    // for(var i=0; i<categories.length; i++) {
+    //   //if more than one cateogry tree
+    // }
+    cb(context);
+  },
+  ['try-nothing'](sessionId, context, cb) {
+    // Here should go the api call, e.g.:
+    // context.forecast = apiCall(context.loc)
+    context.cateogry = 'Brand';
+    cb(context);
   }
-  // You should implement your custom actions here
-  // See https://wit.ai/docs/quickstart
 };
 
 const wit = new Wit(WIT_TOKEN, actions);
@@ -128,6 +163,13 @@ app.get('/webhook', function(req, res) {
     console.error("Failed validation. Make sure the validation tokens match.");
     res.sendStatus(403);          
   }  
+});
+
+app.get('/t', function(req, res) {
+  sessions[req.query.id] = {context: {}};
+  runWit(req.query.txt, req.query.id, (context) => {
+    res.json(context);
+  });
 });
 
 const getFirstMessagingEntry = (body) => {
@@ -183,7 +225,7 @@ app.post('/webhook', function (req, res) {
           res.sendStatus(200);
         } else if (messagingEvent.message) {
           runWit(event.message.text, (context) => {
-            receivedMessage(messagingEvent, sessionId);
+            sendTextMessage(sender, JSON.stringify(context), sessionId);
             res.sendStatus(200);
           });
         } else if (messagingEvent.delivery) {
@@ -205,7 +247,7 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-function runWit(msg, cb) {
+function runWit(msg, sessionId, cb) {
   wit.runActions(
       sessionId, // the user's current session
       msg, // the user's message
