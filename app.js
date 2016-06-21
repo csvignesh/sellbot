@@ -187,6 +187,10 @@ const getFirstMessagingEntry = (body) => {
   return val || null;
 };
 
+function isAttachmentImage(attachment) {
+  return attachment.type === 'image';
+}
+
 /*
  * All callbacks for Messenger are POST-ed. They will be sent to the same
  * webhook. Be sure to subscribe your app to your page to receive callbacks
@@ -221,8 +225,14 @@ app.post('/webhook', function (req, res) {
           res.sendStatus(200);
         } else if (messagingEvent.message) {
           if (messagingEvent.message.attachments) {
-            sendTextMessage(sender, JSON.stringify(messagingEvent.message.attachments), sessionId);
-            res.sendStatus(200);
+            var attachment = messagingEvent.message.attachments[0];
+            if (isAttachmentImage(attachment)) {
+              sendTextMessage(sender, JSON.stringify(attachment.payload), sessionId);
+              res.sendStatus(200);
+            } else {
+              sendTextMessage(sender, 'Invalid attachment', sessionId);
+              res.sendStatus(200);
+            }
           } else {
               runWit(messagingEvent.message.text, sessionId, (context) => {
                   sendTextMessage(sender, JSON.stringify(context), sessionId);
