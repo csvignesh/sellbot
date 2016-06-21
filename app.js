@@ -250,7 +250,7 @@ function runWit(msg, sessionId, cb) {
       (error, context) => {
         if (error) {
           console.log('Oops! Got an error from Wit:', error);
-          cb({err: 1});
+          cb({err: JSON.stringify(error)});
         } else {
           // Our bot did everything it has to do.
           // Now it's waiting for further messages to proceed.
