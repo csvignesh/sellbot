@@ -226,7 +226,7 @@ app.post('/webhook', function (req, res) {
         } else if (messagingEvent.message) {
           //runWit(event.message.text, (context) => {
           setTimeout(() => {
-            sendTextMessage(sender, JSON.stringify(messagingEvent.message), sessionId);
+            sendTextMessage(sender, messagingEvent.message.text, sessionId);
             res.sendStatus(200);
           }, 2000);
           //});
