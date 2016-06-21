@@ -224,10 +224,10 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
           res.sendStatus(200);
         } else if (messagingEvent.message) {
-          //runWit(messagingEvent.message.text, sender, (context) => {
-            sendTextMessage(sender, JSON.stringify(sessions[sender]), sessionId);
+          runWit(messagingEvent.message.text, sessionId, (context) => {
+            sendTextMessage(sender, JSON.stringify(context), sessionId);
             res.sendStatus(200);
-          //});
+          });
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
           res.sendStatus(200);
