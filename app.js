@@ -215,11 +215,6 @@ app.post('/webhook', function (req, res) {
 
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
-
-        //runWit(msg, (messageText) => {
-        //  sendTextMessage(sender, messageText, sessionId);
-        //  res.sendStatus(200);
-        //});
         if (messagingEvent.optin) {
           receivedAuthentication(messagingEvent);
           res.sendStatus(200);
@@ -255,7 +250,7 @@ function runWit(msg, sessionId, cb) {
       (error, context) => {
         if (error) {
           console.log('Oops! Got an error from Wit:', error);
-          cb(error);
+          cb({err: 1});
         } else {
           // Our bot did everything it has to do.
           // Now it's waiting for further messages to proceed.
