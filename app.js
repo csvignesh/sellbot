@@ -228,7 +228,7 @@ app.post('/webhook', function (req, res) {
           setTimeout(() => {
             sendTextMessage(sender, '1312321', sessionId);
             res.sendStatus(200);
-          }, 200);
+          }, 5000);
           //});
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
