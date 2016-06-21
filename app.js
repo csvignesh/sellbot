@@ -224,10 +224,10 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
           res.sendStatus(200);
         } else if (messagingEvent.message) {
-          runWit(messagingEvent.message.text, sender, (context) => {
-            sendTextMessage(sender, JSON.stringify(context), sessionId);
+          //runWit(messagingEvent.message.text, sender, (context) => {
+            sendTextMessage(sender, JSON.stringify(sessions[sender]), sessionId);
             res.sendStatus(200);
-          });
+          //});
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
           res.sendStatus(200);
@@ -332,7 +332,7 @@ function receivedAuthentication(event) {
 
   // When an authentication is received, we'll send a message back to the sender
   // to let them know it was successful.
-  sendTextMessage(senderID, "Authentication successful");
+  sendTextMessage(senderID, "Auth successful");
 }
 
 
@@ -481,7 +481,7 @@ function sendTextMessage(recipientId, messageText, sessionId) {
       id: recipientId
     },
     message: {
-      text: messageText + ' ' + sessionId + ' ' + recipientId
+      text: messageText
     }
   };
 
