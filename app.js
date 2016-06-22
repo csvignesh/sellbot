@@ -205,7 +205,6 @@ app.post('/webhook', function (req, res) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
-                console.log(JSON.stringify(data));
                 var buttons = [];
                 data.forEach((caty) => {
                   buttons.push({
@@ -214,6 +213,7 @@ app.post('/webhook', function (req, res) {
                     "payload": "CATY_SELECTED_" + caty.leafCategories[0]
                   });
                 });
+                console.log(buttons);
                 sendCatySelection(sender, buttons);
               });
               res.sendStatus(200);
