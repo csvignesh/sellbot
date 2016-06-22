@@ -237,11 +237,19 @@ app.post('/webhook', function (req, res) {
               res.sendStatus(200);
             }
           } else {
+            if (messagingEvent.message.text === 'bot') {
+              sendWelcomeMessage(sender);
+              res.sendStatus(200);
+            } else if (messagingEvent.message.text.toLowerCase() === 'start selling') {
+              sendEnterTitleMsg(senderID);
+              res.sendStatus(200);
+            } else {
               runWit(messagingEvent.message.text, sessionId, (context) => {
-                  //sendTextMessage(sender, JSON.stringify(context), sessionId);
-                  sendCatySelection(sender, context.cats);
-                  res.sendStatus(200);
+                //sendTextMessage(sender, JSON.stringify(context), sessionId);
+                sendCatySelection(sender, context.cats);
+                res.sendStatus(200);
               });
+            }
           }
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
