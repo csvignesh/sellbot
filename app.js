@@ -104,11 +104,12 @@ const actions = {
         ]
     };
     var categories = smacresponse.categories;
-    if(categories.length == 1) {
-      var categoryPath = categories[0].categoryPath;
-      var cateogryPathLength = categoryPath.length;
-      context.category = categoryPath[cateogryPathLength-1].categoryName + " " + categoryPath[cateogryPathLength-2].categoryName + " category"
-    }
+    context.cats = categories;
+    //if(categories.length == 1) {
+    //  var categoryPath = categories[0].categoryPath;
+    //  var cateogryPathLength = categoryPath.length;
+    //  context.category = categoryPath[cateogryPathLength-1].categoryName + " " + categoryPath[cateogryPathLength-2].categoryName + " category"
+    //}
     // for(var i=0; i<categories.length; i++) {
     //   //if more than one cateogry tree
     // }
@@ -237,7 +238,8 @@ app.post('/webhook', function (req, res) {
             }
           } else {
               runWit(messagingEvent.message.text, sessionId, (context) => {
-                  sendTextMessage(sender, JSON.stringify(context), sessionId);
+                  //sendTextMessage(sender, JSON.stringify(context), sessionId);
+                  sendCatySelection(sender, context);
                   res.sendStatus(200);
               });
           }
@@ -570,6 +572,44 @@ function sendGenericMessage(recipientId) {
       }
     }
   };  
+
+  callSendAPI(messageData);
+}
+
+function sendCatySelection(recipientId, categories) {
+  var buttons = [];
+  categories.forEach((caty) => {
+    var path = "";
+    caty.categoryPath.forEach((catyPathName) => {
+      path = path ? path + ' > ' : path;
+      path = path + catyPathName.categoryName;
+    });
+
+    buttons.push({
+      "type": "postback",
+      "title": path,
+      "payload": "CATY_SELECTED"
+    });
+  });
+
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Confirm item category",
+            subtitle: "pick a category",
+            "buttons": buttons
+          }]
+        }
+      }
+    }
+  };
 
   callSendAPI(messageData);
 }
