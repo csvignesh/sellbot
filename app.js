@@ -443,7 +443,7 @@ function receivedPostback(event) {
   console.log(payload);
 
   if (payload === 'DEVELOPER_DEFINED_PAYLOAD') {
-    sendEnterTitleMsg(senderID);
+    sendClickPicMsg(senderID);
   } else if (payload === 'CLICK_PIC_SELL') {
     sendTextMessage(senderID, "Send a picture of the item you want to sell");
   } else {
@@ -600,7 +600,7 @@ function sendCatySelection(recipientId, categories) {
   callSendAPI(messageData);
 }
 
-function sendEnterTitleMsg(recipientId) {
+function sendClickPicMsg(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -611,8 +611,8 @@ function sendEnterTitleMsg(recipientId) {
         payload: {
           template_type: "generic",
           elements: [{
-            title: "What do you want to sell",
-            subtitle: "eg. i want to sell my Samsung Galaxy 6"
+            title: "Send me a picture of your item",
+            subtitle: "Or enter a title eg. i want to sell my Samsung Galaxy 6"
           }]
         }
       }
@@ -643,11 +643,6 @@ function sendWelcomeMessage(recipientId) {
                   "type": "postback",
                   "title": "Start Selling",
                   "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                },
-                {
-                  "type": "postback",
-                  "title": "Image of item to sell",
-                  "payload": "CLICK_PIC_SELL"
                 }
               ]
             }
