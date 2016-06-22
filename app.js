@@ -576,6 +576,27 @@ function sendWelcomeMessage(recipientId) {
       id: recipientId
     },
     message: {
+      "setting_type":"call_to_actions",
+      "thread_state":"new_thread",
+      "call_to_actions":[
+        {
+          "message":{
+            "text":"Welcome to My Company!"
+          }
+        }
+      ]
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function sendWelcomeMessage_notsogood(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
       "attachment": {
         "type": "template",
         "payload": {
@@ -583,9 +604,9 @@ function sendWelcomeMessage(recipientId) {
           "elements": [
             {
               "title": "eBay sell bot at your service",
-              "item_url": "http://www.ebay.com",
+              "item_url": "http://www.ebay.com/sl/sell",
               "image_url": "http://i.imgur.com/hhJyaHA.png",
-              "subtitle": "Tell us what you want to sell!",
+              "subtitle": "i can help you sell fast",
               "buttons": [
                 {
                   "type": "postback",
