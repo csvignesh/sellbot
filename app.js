@@ -584,7 +584,7 @@ function sendWelcomeMessage(recipientId) {
             {
               "title": "Welcome to My Company!",
               "item_url": "http://www.ebay.com",
-              "image_url": "http://iconshow.me/media/images/logo/brand-logo-icon/png/256/ebay-256.png",
+              "image_url": "http://i.imgur.com/5Zxv689.png?1",
               "subtitle": "Tell us what you want to sell!",
               "buttons": [
                 {
