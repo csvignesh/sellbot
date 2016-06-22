@@ -221,7 +221,7 @@ app.post('/webhook', function (req, res) {
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
         if (messagingEvent.optin) {
-          receivedAuthentication(messagingEvent);
+          sendWelcomeMessage(sender);
           res.sendStatus(200);
         } else if (messagingEvent.message) {
           if (messagingEvent.message.attachments) {
@@ -566,6 +566,39 @@ function sendGenericMessage(recipientId) {
       }
     }
   };  
+
+  callSendAPI(messageData);
+}
+
+function sendWelcomeMessage(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Ebay Selling",
+            subtitle: "Ebay Selling bot",
+            item_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
+            image_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.oculus.com/en-us/rift/",
+              title: "Open Web URL"
+            }, {
+              type: "postback",
+              title: "Call Postback",
+              payload: "Payload for first bubble",
+            }]
+          }]
+        }
+      }
+    }
+  };
 
   callSendAPI(messageData);
 }
