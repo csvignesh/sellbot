@@ -468,6 +468,8 @@ function receivedPostback(event) {
 
   if (payload === 'DEVELOPER_DEFINED_PAYLOAD') {
     sendEnterTitleMsg(senderID);
+  } else if (payload === 'CLICK_PIC_SELL') {
+    sendTextMessage(senderID, "Send a picture of the item you want to sell");
   } else {
     // When a postback is called, we'll send a message back to the sender to
     // let them know it was successful
@@ -668,7 +670,7 @@ function sendWelcomeMessage(recipientId) {
                 },
                 {
                   "type": "postback",
-                  "title": "Click a picture to sell",
+                  "title": "Image of item to sell",
                   "payload": "CLICK_PIC_SELL"
                 }
               ]
