@@ -217,7 +217,7 @@ app.post('/webhook', function (req, res) {
     data.entry.forEach(function(pageEntry) {
       var pageID = pageEntry.id;
       var timeOfEvent = pageEntry.time;
-
+console.log(req);
       // Iterate over each messaging event
       pageEntry.messaging.forEach(function(messagingEvent) {
         if (messagingEvent.optin) {
@@ -583,18 +583,13 @@ function sendWelcomeMessage(recipientId) {
           "elements": [
             {
               "title": "Welcome to My Company!",
-              "item_url": "https://www.petersbowlerhats.com",
-              "image_url": "https://www.petersbowlerhats.com/img/hat.jpeg",
-              "subtitle": "We have the right hat for everyone.",
+              "item_url": "http://www.ebay.com",
+              "image_url": "http://iconshow.me/media/images/logo/brand-logo-icon/png/256/ebay-256.png",
+              "subtitle": "Tell us what you want to sell!",
               "buttons": [
                 {
-                  "type": "web_url",
-                  "title": "View Website",
-                  "url": "https://www.petersbowlerhats.com"
-                },
-                {
                   "type": "postback",
-                  "title": "Start Chatting",
+                  "title": "Start Selling",
                   "payload": "DEVELOPER_DEFINED_PAYLOAD"
                 }
               ]
