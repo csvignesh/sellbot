@@ -479,10 +479,14 @@ function receivedPostback(event) {
     sendClickPicMsg(senderID);
   } else if (payload === 'CLICK_PIC_SELL') {
     sendTextMessage(senderID, "Send a picture of the item you want to sell");
+  } else if (payload.indexOf('CATY_SELECTED_') === 0) {
+    var leaf = payload.split(('_')).pop();
+    console.log();
   } else {
-    // When a postback is called, we'll send a message back to the sender to
-    // let them know it was successful
-    sendTextMessage(senderID, "Postback mapping not found");
+      // When a postback is called, we'll send a message back to the sender to
+      // let them know it was successful
+      sendTextMessage(senderID, "Postback mapping not found");
+    }
   }
 }
 
