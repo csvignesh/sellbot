@@ -13,7 +13,12 @@ module.exports = {
                 cb(err);
             } else {
                 console.log('Upload successful!  Server responded with');
-                cb(JSON.parse(body));
+                var data = JSON.parse(body);
+                var catys = [];
+                data.imageEntities.entities.forEach((suggestedCaty) => {
+                    catys.push(suggestedCaty);
+                });
+                cb(catys);
             }
         });
     }

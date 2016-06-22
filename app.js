@@ -206,7 +206,15 @@ app.post('/webhook', function (req, res) {
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
                 console.log(JSON.stringify(data));
-                sendTextMessage(sender, JSON.stringify(data.imageEntities.entities[0]), sessionId);
+                var buttons = [];
+                data.forEach((caty) => {
+                  buttons.push({
+                    "type": "postback",
+                    "title": caty.name,
+                    "payload": "CATY_SELECTED_" + caty.leafCategories[0]
+                  });
+                });
+                sendCatySelection(sender, buttons);
               });
               res.sendStatus(200);
             } else {
@@ -222,8 +230,23 @@ app.post('/webhook', function (req, res) {
               res.sendStatus(200);
             } else {
               runWit(messagingEvent.message.text, sessionId, (context) => {
-                //sendTextMessage(sender, JSON.stringify(context), sessionId);
-                sendCatySelection(sender, context.cats);
+                var buttons = [];
+                var categories = context.cats;
+                categories.forEach((caty) => {
+                  var path = "";
+                  caty.categoryPath.forEach((catyPathName) => {
+                    path = path ? path + ' > ' : path;
+                    path = path + catyPathName.categoryName;
+                  });
+
+                  buttons.push({
+                    "type": "postback",
+                    "title": path,
+                    "payload": "CATY_SELECTED"
+                  });
+                });
+
+                sendCatySelection(sender, buttons);
                 res.sendStatus(200);
               });
             }
@@ -563,22 +586,7 @@ function sendGenericMessage(recipientId) {
   callSendAPI(messageData);
 }
 
-function sendCatySelection(recipientId, categories) {
-  var buttons = [];
-  categories.forEach((caty) => {
-    var path = "";
-    caty.categoryPath.forEach((catyPathName) => {
-      path = path ? path + ' > ' : path;
-      path = path + catyPathName.categoryName;
-    });
-
-    buttons.push({
-      "type": "postback",
-      "title": path,
-      "payload": "CATY_SELECTED"
-    });
-  });
-
+function sendCatySelection(recipientId, buttons) {
   var messageData = {
     recipient: {
       id: recipientId
