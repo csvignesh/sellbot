@@ -55,25 +55,9 @@ const actions = {
     // Let's retrieve the Facebook user whose session belongs to
     const recipientId = sessions[sessionId].fbid;
     if (recipientId) {
-      // Yay, we found our recipient!
-      // Let's forward our bot response to her.
-      //fbMessage(recipientId, message, (err, data) => {
-      //  if (err) {
-      //    console.log(
-      //        'Oops! An error occurred while forwarding the response to',
-      //        recipientId,
-      //        ':',
-      //        err
-      //    );
-      //  }
-      //
-      //  // Let's give the wheel back to our bot
-      //  cb(data);
-      //});
       cb();
     } else {
       console.log('Oops! Couldn\'t find user for session:', sessionId);
-      // Giving the wheel back to our bot
       cb();
     }
   },
@@ -105,14 +89,6 @@ const actions = {
     };
     var categories = smacresponse.categories;
     context.cats = categories;
-    //if(categories.length == 1) {
-    //  var categoryPath = categories[0].categoryPath;
-    //  var cateogryPathLength = categoryPath.length;
-    //  context.category = categoryPath[cateogryPathLength-1].categoryName + " " + categoryPath[cateogryPathLength-2].categoryName + " category"
-    //}
-    // for(var i=0; i<categories.length; i++) {
-    //   //if more than one cateogry tree
-    // }
     cb(context);
   },
   ['try-nothing'](sessionId, context, cb) {
@@ -229,7 +205,7 @@ app.post('/webhook', function (req, res) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
-                sendTextMessage(sender, JSON.stringify(data.imageEntities.entities[0].leafCategories), sessionId);
+                sendTextMessage(sender, JSON.stringify(data.imageEntities.entities), sessionId);
               });
               res.sendStatus(200);
             } else {
