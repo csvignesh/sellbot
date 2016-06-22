@@ -457,7 +457,7 @@ function receivedPostback(event) {
   console.log(payload);
 
   if (payload === 'DEVELOPER_DEFINED_PAYLOAD') {
-    sendTextMessage(senderID, "Tell us what you want to sell. eg. I want to sell my playstation 4 console");
+    sendEnterTitleMsg(senderID);
   } else {
     // When a postback is called, we'll send a message back to the sender to
     // let them know it was successful
@@ -570,6 +570,28 @@ function sendGenericMessage(recipientId) {
       }
     }
   };  
+
+  callSendAPI(messageData);
+}
+
+function sendEnterTitleMsg(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "What do you want to sell",
+            subtitle: "eg. i want to sell my fifa 2016 ps4"
+          }]
+        }
+      }
+    }
+  };
 
   callSendAPI(messageData);
 }
