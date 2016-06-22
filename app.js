@@ -582,7 +582,7 @@ function sendWelcomeMessage(recipientId) {
           "template_type": "generic",
           "elements": [
             {
-              "title": "Welcome to My Company!",
+              "title": "eBay sell bot at your service",
               "item_url": "http://www.ebay.com",
               "image_url": "http://i.imgur.com/hhJyaHA.png",
               "subtitle": "Tell us what you want to sell!",
