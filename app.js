@@ -205,6 +205,7 @@ app.post('/webhook', function (req, res) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
+                console.log(data);
                 sendTextMessage(sender, JSON.stringify(data.imageEntities.entities[0]), sessionId);
               });
               res.sendStatus(200);
