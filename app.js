@@ -239,34 +239,37 @@ app.post('/webhook', function (req, res) {
             } else if (messagingEvent.message.text.toLowerCase() === 'start selling') {
               sendEnterTitleMsg(senderID);
               res.sendStatus(200);
+            } else if (sessions[sessionId].context.leafCaty) {
+              console.log(messagingEvent.message.text);
             } else {
-              runWit(messagingEvent.message.text, sessionId, (context) => {
-                var buttons = [];
-                var categories = context.cats;
-                categories.forEach((caty) => {
-                  var path = "";
-                  caty.categoryPath.forEach((catyPathName) => {
-                    path = path ? path + ' > ' : path;
-                    path = path + catyPathName.categoryName;
+                runWit(messagingEvent.message.text, sessionId, (context) => {
+                  var buttons = [];
+                  var categories = context.cats;
+                  categories.forEach((caty) => {
+                    var path = "";
+                    caty.categoryPath.forEach((catyPathName) => {
+                      path = path ? path + ' > ' : path;
+                      path = path + catyPathName.categoryName;
+                    });
+
+                    buttons.push({
+                      "type": "postback",
+                      "title": path,
+                      "payload": "CATY_SELECTED"
+                    });
                   });
 
-                  buttons.push({
-                    "type": "postback",
-                    "title": path,
-                    "payload": "CATY_SELECTED"
-                  });
+                  sendCatySelection(sender, buttons);
+                  res.sendStatus(200);
                 });
-
-                sendCatySelection(sender, buttons);
-                res.sendStatus(200);
-              });
+              }
             }
           }
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
           res.sendStatus(200);
         } else if (messagingEvent.postback) {
-          receivedPostback(messagingEvent);
+          receivedPostback(messagingEvent, sessionId);
           res.sendStatus(200);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
@@ -465,7 +468,7 @@ function receivedDeliveryConfirmation(event) {
  * more at https://developers.facebook.com/docs/messenger-platform/webhook-reference#postback
  * 
  */
-function receivedPostback(event) {
+function receivedPostback(event, sessionId) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
@@ -483,6 +486,7 @@ function receivedPostback(event) {
     sendTextMessage(senderID, "Send a picture of the item you want to sell");
   } else if (payload.indexOf('CATY_SELECTED_') === 0) {
     var leaf = payload.split(('_')).pop();
+    sessions[sessionId].context.leafCaty = leaf;
     sendEnterDescMsg(senderID);
   } else {
       // When a postback is called, we'll send a message back to the sender to
