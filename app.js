@@ -222,6 +222,7 @@ app.post('/webhook', function (req, res) {
                   current = current + 1;
                 });
                 console.log(templates);
+                sendTextMessage(sender, 'Select category which best describes your item');
                 sendCatySelectionTemplates(sender, templates);
                 res.sendStatus(200);
               });
@@ -230,7 +231,7 @@ app.post('/webhook', function (req, res) {
               res.sendStatus(200);
             }
           } else {
-            if (messagingEvent.message.text === 'bot') {
+            if (messagingEvent.message.text.toLowerCase() === 'bot') {
               sendWelcomeMessage(sender);
               res.sendStatus(200);
             } else if (messagingEvent.message.text.toLowerCase() === 'start selling') {
@@ -512,7 +513,7 @@ function sendImageMessage(recipientId) {
  * Send a text message using the Send API.
  *
  */
-function sendTextMessage(recipientId, messageText, sessionId) {
+function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
       id: recipientId
