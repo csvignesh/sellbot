@@ -231,7 +231,7 @@ app.post('/webhook', function (req, res) {
                 console.log('*************************');
                 console.log(JSON.stringify((data)));
                 console.log('*************************');
-                sendTextMessage(sender, data, sessionId);
+                sendTextMessage(sender, JSON.stringify(data.imageEntities[0].leafCategories), sessionId);
               });
               res.sendStatus(200);
             } else {
