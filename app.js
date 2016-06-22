@@ -227,8 +227,10 @@ app.post('/webhook', function (req, res) {
           if (messagingEvent.message.attachments) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
-              sendTextMessage(sender, JSON.stringify(attachment.payload), sessionId);
-              res.sendStatus(200);
+              require('./img_reco').getCategory(attachment.payload.url, (data) => {
+                sendTextMessage(sender, JSON.stringify(data), sessionId);
+                res.sendStatus(200);
+              });
             } else {
               sendTextMessage(sender, 'Invalid attachment', sessionId);
               res.sendStatus(200);
