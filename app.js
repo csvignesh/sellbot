@@ -570,7 +570,7 @@ function sendGenericMessage(recipientId) {
   callSendAPI(messageData);
 }
 
-function sendWelcomeMessage(recipientId) {
+function sendWelcomeMessage_notsogood(recipientId) {
   var messageData = {
     "setting_type":"call_to_actions",
     "thread_state":"new_thread",
@@ -586,7 +586,7 @@ function sendWelcomeMessage(recipientId) {
   callSendAPI(messageData);
 }
 
-function sendWelcomeMessage_notsogood(recipientId) {
+function sendWelcomeMessage(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
