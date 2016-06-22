@@ -13,7 +13,7 @@ module.exports = {
                 cb(err);
             } else {
                 console.log('Upload successful!  Server responded with');
-                cb(body);
+                cb(JSON.parse(body));
             }
         });
     }
