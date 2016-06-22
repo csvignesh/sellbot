@@ -229,7 +229,7 @@ app.post('/webhook', function (req, res) {
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
                 console.log('*************************');
-                console.log(typeof data);
+                console.log(JSON.parse(data));
                 console.log('*************************');
                 sendTextMessage(sender, '123', sessionId);
               });
