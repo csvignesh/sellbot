@@ -107,7 +107,7 @@ const actions = {
     if(categories.length == 1) {
       var categoryPath = categories[0].categoryPath;
       var cateogryPathLength = categoryPath.length;
-      context.category = categoryPath[cateogryPathLength-1].categoryName + " " + categoryPath[cateogryPathLength-2].categoryName + " cateogry"
+      context.category = categoryPath[cateogryPathLength-1].categoryName + " " + categoryPath[cateogryPathLength-2].categoryName + " category"
     }
     // for(var i=0; i<categories.length; i++) {
     //   //if more than one cateogry tree
