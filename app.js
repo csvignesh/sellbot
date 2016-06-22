@@ -483,7 +483,7 @@ function receivedPostback(event) {
     sendTextMessage(senderID, "Send a picture of the item you want to sell");
   } else if (payload.indexOf('CATY_SELECTED_') === 0) {
     var leaf = payload.split(('_')).pop();
-    console.log(leaf);
+    sendEnterDescMsg(senderID);
   } else {
       // When a postback is called, we'll send a message back to the sender to
       // let them know it was successful
@@ -596,6 +596,28 @@ function sendGenericMessage(recipientId) {
       }
     }
   };  
+
+  callSendAPI(messageData);
+}
+
+function sendEnterDescMsg(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Please describe your item briefly",
+            subtitle: "eg. Iphone 6s plus space grey, 64gb, at&t with charger and headphones"
+          }]
+        }
+      }
+    }
+  };
 
   callSendAPI(messageData);
 }
