@@ -453,12 +453,16 @@ function receivedPostback(event) {
   // button for Structured Messages. 
   var payload = event.postback.payload;
 
-  console.log("Received postback for user %d and page %d with payload '%s' " + 
-    "at %d", senderID, recipientID, payload, timeOfPostback);
+  console.log("Received postback");
+  console.log(payload);
 
-  // When a postback is called, we'll send a message back to the sender to 
-  // let them know it was successful
-  sendTextMessage(senderID, "Postback called");
+  if (payload === 'DEVELOPER_DEFINED_PAYLOAD') {
+    sendTextMessage(senderID, "Tell us what you want to sell. eg. I want to sell my playstation 4 console");
+  } else {
+    // When a postback is called, we'll send a message back to the sender to
+    // let them know it was successful
+    sendTextMessage(senderID, "Postback mapping not found");
+  }
 }
 
 
@@ -566,22 +570,6 @@ function sendGenericMessage(recipientId) {
       }
     }
   };  
-
-  callSendAPI(messageData);
-}
-
-function sendWelcomeMessage_notsogood(recipientId) {
-  var messageData = {
-    "setting_type":"call_to_actions",
-    "thread_state":"new_thread",
-    "call_to_actions":[
-      {
-        "message":{
-          "text":"Welcome to My Company!"
-        }
-      }
-    ]
-  };
 
   callSendAPI(messageData);
 }
