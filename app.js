@@ -206,17 +206,21 @@ app.post('/webhook', function (req, res) {
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
                 var buttons = [];
+                var current = 0;
                 data.forEach((caty) => {
-                  buttons.push({
-                    "type": "postback",
-                    "title": caty.name,
-                    "payload": "CATY_SELECTED_" + caty.leafCategories[0]
-                  });
+                  if (current < 3) {
+                    buttons.push({
+                      "type": "postback",
+                      "title": caty.name,
+                      "payload": "CATY_SELECTED_" + caty.leafCategories[0]
+                    });
+                  }
+                  current = current + 1;
                 });
                 console.log(buttons);
                 sendCatySelection(sender, buttons);
+                res.sendStatus(200);
               });
-              res.sendStatus(200);
             } else {
               sendTextMessage(sender, 'Invalid attachment', sessionId);
               res.sendStatus(200);
