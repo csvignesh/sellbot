@@ -657,6 +657,11 @@ function sendWelcomeMessage(recipientId) {
                   "type": "postback",
                   "title": "Start Selling",
                   "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                },
+                {
+                  "type": "postback",
+                  "title": "Click a picture to sell",
+                  "payload": "CLICK_PIC_SELL"
                 }
               ]
             }
