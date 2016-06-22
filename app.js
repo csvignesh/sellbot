@@ -205,20 +205,24 @@ app.post('/webhook', function (req, res) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
-                var buttons = [];
+                var templates = [];
                 var current = 0;
                 data.forEach((caty) => {
                   if (current < 3) {
-                    buttons.push({
-                      "type": "postback",
-                      "title": caty.name,
-                      "payload": "CATY_SELECTED_" + caty.leafCategories[0]
+                    templates.push({
+                      title: caty.name.split(':').pop(),
+                      subtitle: caty.name,
+                      buttons: [{
+                        "type": "postback",
+                        "title": "select",
+                        "payload": "CATY_SELECTED_" + caty.leafCategories[0]
+                      }]
                     });
                   }
                   current = current + 1;
                 });
-                console.log(buttons);
-                sendCatySelection(sender, buttons);
+                console.log(templates);
+                sendCatySelectionTemplates(sender, templates);
                 res.sendStatus(200);
               });
             } else {
@@ -579,13 +583,32 @@ function sendGenericMessage(recipientId) {
             }, {
               type: "postback",
               title: "Call Postback",
-              payload: "Payload for first bubble",
+              payload: "Payload for first bubble"
             }]
           }]
         }
       }
     }
   };  
+
+  callSendAPI(messageData);
+}
+
+function sendCatySelectionTemplates(recipientId, templates) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: templates
+        }
+      }
+    }
+  };
 
   callSendAPI(messageData);
 }
