@@ -243,6 +243,7 @@ app.post('/webhook', function (req, res) {
               //this is the desc usecase
               sessions[sessionId].context.desc = messagingEvent.message.text;
               console.log(messagingEvent.message.text);
+              res.sendStatus(200);
             } else {
                 runWit(messagingEvent.message.text, sessionId, (context) => {
                   var buttons = [];
