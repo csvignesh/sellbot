@@ -232,6 +232,8 @@ app.post('/webhook', function (req, res) {
             }
           } else {
             if (messagingEvent.message.text.toLowerCase() === 'bot') {
+              // reset context
+              sessions[sessionId].context = {};
               sendWelcomeMessage(sender);
               res.sendStatus(200);
             } else if (messagingEvent.message.text.toLowerCase() === 'start selling') {
