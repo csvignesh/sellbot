@@ -240,6 +240,8 @@ app.post('/webhook', function (req, res) {
               sendEnterTitleMsg(senderID);
               res.sendStatus(200);
             } else if (sessions[sessionId].context.leafCaty) {
+              //this is the desc usecase
+              sessions[sessionId].context.desc = messagingEvent.message.text;
               console.log(messagingEvent.message.text);
             } else {
                 runWit(messagingEvent.message.text, sessionId, (context) => {
