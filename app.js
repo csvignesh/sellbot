@@ -576,28 +576,32 @@ function sendWelcomeMessage(recipientId) {
       id: recipientId
     },
     message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "Ebay Selling",
-            subtitle: "Ebay Selling bot",
-            item_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
-            image_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/rift/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for first bubble",
-            }]
-          }]
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Welcome to My Company!",
+              "item_url":"https://www.petersbowlerhats.com",
+              "image_url":"https://www.petersbowlerhats.com/img/hat.jpeg",
+              "subtitle":"We have the right hat for everyone.",
+              "buttons":[
+                {
+                  "type":"web_url",
+                  "title":"View Website",
+                  "url":"https://www.petersbowlerhats.com"
+                },
+                {
+                  "type":"postback",
+                  "title":"Start Chatting",
+                  "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                }
+              ]
+            }
+          ]
         }
       }
-    }
   };
 
   callSendAPI(messageData);
