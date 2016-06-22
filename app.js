@@ -231,7 +231,7 @@ app.post('/webhook', function (req, res) {
                 console.log('*************************');
                 console.log(JSON.stringify((data)));
                 console.log('*************************');
-                sendTextMessage(sender, 'caty data', sessionId);
+                sendTextMessage(sender, data, sessionId);
               });
               res.sendStatus(200);
             } else {
