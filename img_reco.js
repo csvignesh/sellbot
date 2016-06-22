@@ -11,7 +11,7 @@ module.exports = {
             if (err) {
                 console.error('upload failed:');
             } else {
-                console.log('Upload successful!  Server responded with:', body);
+                console.log('Upload successful!  Server responded with');
             }
             cb(err || body);
         });
