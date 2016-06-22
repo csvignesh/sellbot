@@ -586,7 +586,7 @@ function sendEnterTitleMsg(recipientId) {
           template_type: "generic",
           elements: [{
             title: "What do you want to sell",
-            subtitle: "eg. i want to sell my fifa 2016 ps4"
+            subtitle: "eg. i want to sell my Samsung Galaxy 6"
           }]
         }
       }
