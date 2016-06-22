@@ -239,7 +239,7 @@ app.post('/webhook', function (req, res) {
           } else {
               runWit(messagingEvent.message.text, sessionId, (context) => {
                   //sendTextMessage(sender, JSON.stringify(context), sessionId);
-                  sendCatySelection(sender, context);
+                  sendCatySelection(sender, context.cats);
                   res.sendStatus(200);
               });
           }
