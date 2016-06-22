@@ -612,7 +612,7 @@ function sendClickPicMsg(recipientId) {
           template_type: "generic",
           elements: [{
             title: "Send me a picture of your item",
-            subtitle: "Or enter a title eg. i want to sell my Samsung Galaxy 6"
+            subtitle: "Or enter a title eg. sell my Samsung Galaxy 6"
           }]
         }
       }
