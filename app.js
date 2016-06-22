@@ -572,20 +572,15 @@ function sendGenericMessage(recipientId) {
 
 function sendWelcomeMessage(recipientId) {
   var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      "setting_type":"call_to_actions",
-      "thread_state":"new_thread",
-      "call_to_actions":[
-        {
-          "message":{
-            "text":"Welcome to My Company!"
-          }
+    "setting_type":"call_to_actions",
+    "thread_state":"new_thread",
+    "call_to_actions":[
+      {
+        "message":{
+          "text":"Welcome to My Company!"
         }
-      ]
-    }
+      }
+    ]
   };
 
   callSendAPI(messageData);
