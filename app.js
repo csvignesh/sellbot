@@ -229,8 +229,8 @@ app.post('/webhook', function (req, res) {
             if (isAttachmentImage(attachment)) {
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
                 sendTextMessage(sender, JSON.stringify(data), sessionId);
-                res.sendStatus(200);
               });
+              res.sendStatus(200);
             } else {
               sendTextMessage(sender, 'Invalid attachment', sessionId);
               res.sendStatus(200);
