@@ -602,6 +602,7 @@ function receivedPostback(event, sessionId) {
   } else if (payload.indexOf('price_reco_accepted_') === 0) {
     var price = payload.split('_').pop();
     console.log('Price:' + price);
+    sendReceiptMessage(senderID);
   }else {
       // When a postback is called, we'll send a message back to the sender to
       // let them know it was successful
