@@ -320,7 +320,7 @@ function showExtractedAspects(senderID, sessionId) {
           template_type: "generic",
           elements: [{
             title: aspectToFill,
-            subtitle: "pick item's property",
+            subtitle: "pick item\'s property",
             buttons: []
           }]
         }
@@ -338,7 +338,7 @@ function showExtractedAspects(senderID, sessionId) {
           template_type: "generic",
           elements: [{
             title: aspectToFill,
-            subtitle: "Ebay Selling bot",
+            subtitle: "pick item's property",
             buttons: [{
               type: "postback",
               title: "Call Postback",
