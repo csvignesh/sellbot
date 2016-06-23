@@ -300,11 +300,13 @@ function showExtractedAspects(senderID, sessionId) {
   var buttons = [];
 
   aspectVals.forEach((val) => {
-    buttons.push({
-      type: "postback",
-      title: val,
-      payload: "aspect_" + aspectToFill + "_" + val
-    });
+    if (buttons.length < 3) {
+      buttons.push({
+        type: "postback",
+        title: val,
+        payload: "aspect_" + aspectToFill + "_" + val
+      });
+    }
   });
 
   console.log(sessions[sessionId].context.aspectsNotFilled, aspectToFill, aspectVals, buttons);
@@ -321,7 +323,7 @@ function showExtractedAspects(senderID, sessionId) {
           elements: [{
             title: aspectToFill,
             subtitle: "pick item\'s property",
-            buttons: []
+            buttons: buttons
           }]
         }
       }
@@ -339,11 +341,7 @@ function showExtractedAspects(senderID, sessionId) {
           elements: [{
             title: aspectToFill,
             subtitle: "pick item's property",
-            buttons: [{
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for first bubble"
-            }]
+            buttons: []
           }]
         }
       }
