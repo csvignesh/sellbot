@@ -247,7 +247,7 @@ app.post('/webhook', function (req, res) {
                 //this is the desc usecase
                 sessions[sessionId].context.desc = messagingEvent.message.text;
                 var desc = sessions[sessionId].context.desc;
-                var leafCaty = var desc = sessions[sessionId].context.leafCaty;
+                var leafCaty = sessions[sessionId].context.leafCaty;
                 require('./attributeExt').getAspectDetails(desc, leafCaty, () => {
                   console.log('done');
                 });
