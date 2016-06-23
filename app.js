@@ -232,7 +232,7 @@ app.post('/webhook', function (req, res) {
             }
           } else {
             if (messagingEvent.message.text.toLowerCase() === 'bot') {
-              // reset context
+              // reset context to empty
               sessions[sessionId].context = {};
               sendWelcomeMessage(sender);
               res.sendStatus(200);
