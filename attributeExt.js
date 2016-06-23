@@ -6,7 +6,7 @@ module.exports = {
             if (err) {
                 console.error('upload failed:');
                 cb(err);
-            } else if (!error && response.statusCode == 200) {
+            } else if (!err && response.statusCode == 200) {
                 console.log(body);
             }
         });
