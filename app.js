@@ -285,6 +285,7 @@ app.post('/webhook', function (req, res) {
           res.sendStatus(200);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+          sendImageMessage(sender);
           res.sendStatus(200);
         }
       });
@@ -620,7 +621,7 @@ function sendImageMessage(recipientId) {
       attachment: {
         type: "image",
         payload: {
-          url: "http://i.imgur.com/zYIlgBl.png"
+          url: "http://cdn.shopify.com/s/files/1/0185/5092/products/persons-0019_small.png?v=1369544043"
         }
       }
     }
