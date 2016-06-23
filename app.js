@@ -254,26 +254,27 @@ app.post('/webhook', function (req, res) {
                 });
               }
             } else {
-                runWit(messagingEvent.message.text, sessionId, (context) => {
-                  var buttons = [];
-                  var categories = context.cats;
-                  categories.forEach((caty) => {
-                    var path = "";
-                    caty.categoryPath.forEach((catyPathName) => {
-                      path = path ? path + ' > ' : path;
-                      path = path + catyPathName.categoryName;
-                    });
-
-                    buttons.push({
-                      "type": "postback",
-                      "title": path,
-                      "payload": "CATY_SELECTED"
-                    });
-                  });
-
-                  sendCatySelection(sender, buttons);
-                  res.sendStatus(200);
-                });
+              res.sendStatus(200);
+                //runWit(messagingEvent.message.text, sessionId, (context) => {
+                //  var buttons = [];
+                //  var categories = context.cats;
+                //  categories.forEach((caty) => {
+                //    var path = "";
+                //    caty.categoryPath.forEach((catyPathName) => {
+                //      path = path ? path + ' > ' : path;
+                //      path = path + catyPathName.categoryName;
+                //    });
+                //
+                //    buttons.push({
+                //      "type": "postback",
+                //      "title": path,
+                //      "payload": "CATY_SELECTED"
+                //    });
+                //  });
+                //
+                //  sendCatySelection(sender, buttons);
+                //  res.sendStatus(200);
+                //});
               }
           }
         } else if (messagingEvent.delivery) {
