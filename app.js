@@ -246,6 +246,7 @@ app.post('/webhook', function (req, res) {
                 var desc = sessions[sessionId].context.desc;
                 var leafCaty = sessions[sessionId].context.leafCaty;
                 require('./attributeExt').getAspectDetails(desc, leafCaty, (aspectData) => {
+                  console.log(aspectData);
                   sessions[sessionId].context.aspectsMap = aspectData;
                   sessions[sessionId].context.aspectsNotFilled = Object.keys(aspectData.unselected);
                   showExtractedAspects(sender, sessionId);
@@ -601,7 +602,6 @@ function receivedPostback(event, sessionId) {
       sendTextMessage(senderID, "Postback mapping not found");
   }
 }
-
 
 /*
  * Send a message with an using the Send API.
