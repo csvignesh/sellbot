@@ -298,7 +298,6 @@ function showExtractedAspects(senderID, sessionId) {
   var aspectToFill = sessions[sessionId].context.aspectsNotFilled.shift();
   var aspectVals = sessions[sessionId].context.aspectsMap.unselected[aspectToFill];
   var buttons = [];
-  console.log(sessions[sessionId].context.aspectsNotFilled, aspectToFill, aspectVals);
 
   aspectVals.forEach((val) => {
     buttons.push({
@@ -307,6 +306,8 @@ function showExtractedAspects(senderID, sessionId) {
       payload: "aspect_" + aspectToFill + "_" + val
     });
   });
+
+  console.log(sessions[sessionId].context.aspectsNotFilled, aspectToFill, aspectVals, buttons);
 
   var messageData = {
     recipient: {
@@ -320,7 +321,7 @@ function showExtractedAspects(senderID, sessionId) {
           elements: [{
             title: aspectToFill,
             subtitle: "pick item's property",
-            buttons: buttons
+            buttons: []
           }]
         }
       }
