@@ -294,6 +294,33 @@ app.post('/webhook', function (req, res) {
   }
 });
 
+function sendPriceRecoMessage(title, subtitle, senderID) {
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: title,
+            subtitle: subtitle,
+            buttons: [{
+              type: "postback",
+              title: 'Accept',
+              payload: "price_reco_accepted"
+            }]
+          }]
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
 function showExtractedAspects(senderID, sessionId) {
   var aspectToFill = sessions[sessionId].context.aspectsNotFilled.shift();
   var aspectVals = sessions[sessionId].context.aspectsMap.unselected[aspectToFill];
@@ -560,7 +587,9 @@ function receivedPostback(event, sessionId) {
       });
 
       require('./price_reco').getPriceReco(title, caty, condition, (data) => {
-        console.log(data);
+        var title = data.binPrice.shortMessage;
+        var subTitle = data.binPrice.guidanceMessage;
+        sendPriceRecoMessage(title, subTitle, senderID)
       });
     }
   } else {
