@@ -2,7 +2,13 @@ var request = require("request");
 
 module.exports = {
     getAspectDetails: function(title, caty, cb) {
-        request('http://seewiw.ebay.com/s/bot/smac', function (err, response, body) {
+        request({
+            url: 'http://seewiw.ebay.com/s/bot/smac',
+            qs: {
+                title: title,
+                categoryId: caty
+            }
+        }, function (err, response, body) {
             if (err) {
                 console.error('upload failed:');
                 cb(err);
