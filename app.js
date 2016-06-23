@@ -241,7 +241,7 @@ app.post('/webhook', function (req, res) {
               res.sendStatus(200);
             } else if (sessions[sessionId].context.leafCaty) {
               if (!sessions[sessionId].context.desc) {
-                console.log('nothing to do!!');
+                console.log(sessions[sessionId].context.desc, 'nothing to do!!');
               } else {
                 //this is the desc usecase
                 sessions[sessionId].context.desc = messagingEvent.message.text;
