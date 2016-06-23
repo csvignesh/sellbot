@@ -295,10 +295,10 @@ app.post('/webhook', function (req, res) {
 });
 
 function showExtractedAspects(senderID, sessionId) {
-  console.log(sessions[sessionId].context.aspectsNotFilled);
-  var aspectToFill = sessions[sessionId].context.aspectsNotFilled.pop();
+  var aspectToFill = sessions[sessionId].context.aspectsNotFilled.shift();
   var aspectVals = sessions[sessionId].context.aspectsMap.unselected[aspectToFill];
   var buttons = [];
+  console.log(sessions[sessionId].context.aspectsNotFilled, aspectToFill, aspectVals);
 
   aspectVals.forEach((val) => {
     buttons.push({
