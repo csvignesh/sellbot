@@ -327,8 +327,8 @@ function showExtractedAspects(senderID, sessionId) {
       }
     }
   };
-
-  callSendAPI(messageData);
+  sendGenericMessage(senderID);
+  //callSendAPI(messageData);
   //sendTextMessage(senderID, '123123');
 }
 
