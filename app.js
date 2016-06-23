@@ -236,9 +236,6 @@ app.post('/webhook', function (req, res) {
               sessions[sessionId].context = {};
               sendWelcomeMessage(sender);
               res.sendStatus(200);
-            } else if (messagingEvent.message.text.toLowerCase() === 'start selling') {
-              sendEnterTitleMsg(senderID);
-              res.sendStatus(200);
             } else if (sessions[sessionId].context.leafCaty) {
               if (sessions[sessionId].context.desc) {
                 console.log(sessions[sessionId].context.desc, 'nothing to do!!');
@@ -296,7 +293,7 @@ app.post('/webhook', function (req, res) {
 });
 
 function showExtractedAspects(senderID, data) {
-  sendTextMessage(senderID, JSON.stringify(data));
+  sendTextMessage(senderID, '123123');
 }
 
 function runWit(msg, sessionId, cb) {
