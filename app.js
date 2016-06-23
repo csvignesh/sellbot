@@ -246,7 +246,9 @@ app.post('/webhook', function (req, res) {
                 var desc = sessions[sessionId].context.desc;
                 var leafCaty = sessions[sessionId].context.leafCaty;
                 require('./attributeExt').getAspectDetails(desc, leafCaty, (aspectData) => {
-                  showExtractedAspects(sender, aspectData);
+                  sessions[sessionId].context.aspectsMap = aspectData;
+                  sessions[sessionId].context.aspectsNotFilled = Object.keys(aspectData.unselected);
+                  showExtractedAspects(sender, sessionId);
                   res.sendStatus(200);
                 });
               }
@@ -292,29 +294,42 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-function showExtractedAspects(senderID, data) {
-  console.log('Extracted aspect data');
-  console.log(data.selected);
+function showExtractedAspects(senderID, sessionId) {
+  console.log(sessions[sessionId].context.aspectsNotFilled);
+  var aspectToFill = sessions[sessionId].context.aspectsNotFilled.pop();
+  var aspectVals = sessions[sessionId].context.aspectsMap.unselected[aspectToFill];
+  var buttons = [];
 
-  console.log('unselected aspect data');
-  console.log(data.unselected);
-  //var messageData = {
-  //  recipient: {
-  //    id: recipientId
-  //  },
-  //  message: {
-  //    attachment: {
-  //      type: "template",
-  //      payload: {
-  //        template_type: "generic",
-  //        elements: templates
-  //      }
-  //    }
-  //  }
-  //};
+  aspectVals.forEach((val) => {
+    buttons.push({
+      type: "postback",
+      title: val,
+      payload: "aspect_" + aspectToFill + "_" + val
+    });
+  });
 
-  //callSendAPI(messageData);
-  sendTextMessage(senderID, '123123');
+
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: aspectToFill,
+            subtitle: "pick item's property",
+            buttons: buttons
+          }]
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+  //sendTextMessage(senderID, '123123');
 }
 
 function runWit(msg, sessionId, cb) {
