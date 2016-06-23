@@ -588,6 +588,7 @@ function receivedPostback(event, sessionId) {
         }
       });
 
+      console.log(title, caty, condition);
       require('./price_reco').getPriceReco(title, caty, condition, (data) => {
         var title = data.binPrice.shortMessage + data.binPrice.guidanceData.currency;
         var subTitle = data.binPrice.guidanceMessage;
