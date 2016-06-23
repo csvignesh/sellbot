@@ -300,7 +300,7 @@ function showExtractedAspects(senderID, sessionId) {
   var buttons = [];
 
   aspectVals.forEach((val) => {
-    if (buttons.length < 4) {
+    if (buttons.length < 3) {
       buttons.push({
         type: "postback",
         title: val,
@@ -309,27 +309,9 @@ function showExtractedAspects(senderID, sessionId) {
     }
   });
 
-  console.log(sessions[sessionId].context.aspectsNotFilled, aspectToFill, aspectVals, buttons);
+  console.log(aspectToFill, aspectVals, buttons);
 
   var messageData = {
-    recipient: {
-      id: senderID
-    },
-    message: {
-      attachment:{
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: aspectToFill,
-            subtitle: "pick item\'s property",
-            buttons: buttons
-          }]
-        }
-      }
-    }
-  };
-  messageData = {
     recipient: {
       id: senderID
     },
