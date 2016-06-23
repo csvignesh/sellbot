@@ -308,7 +308,6 @@ function showExtractedAspects(senderID, sessionId) {
     });
   });
 
-
   var messageData = {
     recipient: {
       id: senderID
