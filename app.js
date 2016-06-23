@@ -341,7 +341,7 @@ function showExtractedAspects(senderID, sessionId) {
           elements: [{
             title: aspectToFill,
             subtitle: "pick item's property",
-            buttons: []
+            buttons: buttons
           }]
         }
       }
