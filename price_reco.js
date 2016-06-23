@@ -7,7 +7,7 @@ module.exports = {
             qs: {
                 title: title,
                 caty: caty,
-                cond: condition && condition.indexOf('new') > 0 ? 1000 : 3000
+                cond: condition && condition.toLowerCase().indexOf('new') > 0 ? 1000 : 3000
             }
         }, function (err, response, body) {
             if (err) {
