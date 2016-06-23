@@ -13,8 +13,7 @@ module.exports = {
                 console.error(err);
                 cb(err);
             } else if (!err && response.statusCode == 200) {
-                console.log(typeof body);
-                cb(body);
+                cb(JSON.parse(body));
             }
         });
     }

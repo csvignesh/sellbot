@@ -248,11 +248,10 @@ app.post('/webhook', function (req, res) {
                 sessions[sessionId].context.desc = messagingEvent.message.text;
                 var desc = sessions[sessionId].context.desc;
                 var leafCaty = sessions[sessionId].context.leafCaty;
-                require('./attributeExt').getAspectDetails(desc, leafCaty, () => {
-                  console.log('done');
+                require('./attributeExt').getAspectDetails(desc, leafCaty, (aspectData) => {
+                  showExtractedAspects(sender, aspectData);
+                  res.sendStatus(200);
                 });
-                console.log(messagingEvent.message.text);
-                res.sendStatus(200);
               }
             } else {
                 runWit(messagingEvent.message.text, sessionId, (context) => {
@@ -295,6 +294,10 @@ app.post('/webhook', function (req, res) {
     // successfully received the callback. Otherwise, the request will time out.
   }
 });
+
+function showExtractedAspects(senderID, data) {
+  sendTextMessage(senderID, JSON.stringify(data));
+}
 
 function runWit(msg, sessionId, cb) {
   wit.runActions(
