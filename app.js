@@ -240,10 +240,14 @@ app.post('/webhook', function (req, res) {
               sendEnterTitleMsg(senderID);
               res.sendStatus(200);
             } else if (sessions[sessionId].context.leafCaty) {
-              //this is the desc usecase
-              sessions[sessionId].context.desc = messagingEvent.message.text;
-              console.log(messagingEvent.message.text);
-              res.sendStatus(200);
+              if (!sessions[sessionId].context.desc) {
+                console.log('nothing to do!!');
+              } else {
+                //this is the desc usecase
+                sessions[sessionId].context.desc = messagingEvent.message.text;
+                console.log(messagingEvent.message.text);
+                res.sendStatus(200);
+              }
             } else {
                 runWit(messagingEvent.message.text, sessionId, (context) => {
                   var buttons = [];
