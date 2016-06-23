@@ -300,7 +300,7 @@ function showExtractedAspects(senderID, sessionId) {
   var buttons = [];
 
   aspectVals.forEach((val) => {
-    if (buttons.length < 3) {
+    if (buttons.length < 4) {
       buttons.push({
         type: "postback",
         title: val,
