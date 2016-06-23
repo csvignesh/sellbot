@@ -337,15 +337,9 @@ function showExtractedAspects(senderID, sessionId) {
         payload: {
           template_type: "generic",
           elements: [{
-            title: "Ebay Selling",
+            title: aspectToFill,
             subtitle: "Ebay Selling bot",
-            item_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
-            image_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
             buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/rift/",
-              title: "Open Web URL"
-            }, {
               type: "postback",
               title: "Call Postback",
               payload: "Payload for first bubble"
