@@ -592,7 +592,7 @@ function receivedPostback(event, sessionId) {
       require('./price_reco').getPriceReco(title, caty, condition, (data) => {
         var title = data.binPrice.shortMessage + data.binPrice.guidanceData.currency;
         var subTitle = data.binPrice.guidanceMessage;
-        sendPriceRecoMessage(title, subTitle, senderID)
+        sendPriceRecoMessage(title, subTitle, senderID);
       });
     }
   } else {
