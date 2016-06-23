@@ -539,7 +539,15 @@ function receivedPostback(event, sessionId) {
     sessions[sessionId].context.leafCaty = leaf;
     sendEnterDescMsg(senderID);
   } else if (payload.indexOf('aspect_') === 0) {
-    showExtractedAspects(senderID, sessionId);
+    if (sessions[sessionId].context.aspectsNotFilled.length > 0) {
+      var payloadSplit = payload.split('_');
+      var selectedAspect = payloadSplit.pop();
+      sessions[sessionId].context.aspectsMap.selected[payloadSplit.pop()] = selectedAspect;
+      showExtractedAspects(senderID, sessionId);
+    } else {
+      //recommend price
+      console.log(sessions[sessionId].context.aspectsMap.selected);
+    }
   } else {
       // When a postback is called, we'll send a message back to the sender to
       // let them know it was successful
