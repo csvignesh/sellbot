@@ -293,6 +293,26 @@ app.post('/webhook', function (req, res) {
 });
 
 function showExtractedAspects(senderID, data) {
+  console.log('Extracted aspect data');
+  console.log(data.selected);
+  console.log('unselected aspect data');
+  console.log(data.unselected);
+  //var messageData = {
+  //  recipient: {
+  //    id: recipientId
+  //  },
+  //  message: {
+  //    attachment: {
+  //      type: "template",
+  //      payload: {
+  //        template_type: "generic",
+  //        elements: templates
+  //      }
+  //    }
+  //  }
+  //};
+
+  //callSendAPI(messageData);
   sendTextMessage(senderID, '123123');
 }
 
