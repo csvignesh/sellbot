@@ -295,6 +295,7 @@ app.post('/webhook', function (req, res) {
 function showExtractedAspects(senderID, data) {
   console.log('Extracted aspect data');
   console.log(data.selected);
+
   console.log('unselected aspect data');
   console.log(data.unselected);
   //var messageData = {
