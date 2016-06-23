@@ -285,6 +285,7 @@ app.post('/webhook', function (req, res) {
           res.sendStatus(200);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+          res.sendStatus(200);
         }
       });
     });
@@ -296,7 +297,7 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-function sendPriceRecoMessage(title, subtitle, senderID) {
+function sendPriceRecoMessage(title, subtitle, price, senderID) {
   var messageData = {
     recipient: {
       id: senderID
@@ -313,7 +314,7 @@ function sendPriceRecoMessage(title, subtitle, senderID) {
             buttons: [{
               type: "postback",
               title: 'Accept',
-              payload: "price_reco_accepted"
+              payload: "price_reco_accepted_" + price
             }]
           }]
         }
@@ -593,10 +594,13 @@ function receivedPostback(event, sessionId) {
       require('./price_reco').getPriceReco(title, caty, condition, (data) => {
         var title = data.binPrice.shortMessage + data.binPrice.guidanceData.currency;
         var subTitle = data.binPrice.guidanceMessage;
-        sendPriceRecoMessage(title, subTitle, senderID);
+        sendPriceRecoMessage(title, subTitle, data.binPrice.recommendedValue, senderID);
       });
     }
-  } else {
+  } else if (payload.indexOf('price_reco_accepted_') === 0) {
+    var price = payload.split('_').pop();
+    console.log('Price:' + price);
+  }else {
       // When a postback is called, we'll send a message back to the sender to
       // let them know it was successful
       sendTextMessage(senderID, "Postback mapping not found");
