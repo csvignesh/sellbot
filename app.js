@@ -310,7 +310,7 @@ function sendPriceRecoMessage(title, subtitle, senderID) {
           elements: [{
             title: title,
             subtitle: subtitle,
-            image_url: "https://onlineadmin.book-onlinenow.net/Webpages/1151/best-price-guarantee.png",
+            image_url: "http://i.istockimg.com/file_thumbview_approve/40765602/3/stock-illustration-40765602-flat-price-tag-icon.jpg",
             buttons: [{
               type: "postback",
               title: 'Accept',
