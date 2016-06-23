@@ -232,6 +232,9 @@ app.post('/webhook', function (req, res) {
             }
           } else {
             if (messagingEvent.message.text.toLowerCase() === 'bot') {
+              require('./price_reco').getPriceReco('apple iphone 5s', 9355, 'new', (data) => {
+                console.log(data);
+              });
               // reset context
               sessions[sessionId].context = {};
               sendWelcomeMessage(sender);
