@@ -307,7 +307,7 @@ function sendPriceRecoMessage(title, subtitle, senderID) {
           elements: [{
             title: title,
             subtitle: subtitle,
-            image_url: "https://travelingwithwheels.files.wordpress.com/2014/03/rec.jpg",
+            image_url: "https://onlineadmin.book-onlinenow.net/Webpages/1151/best-price-guarantee.png",
             buttons: [{
               type: "postback",
               title: 'Accept',
