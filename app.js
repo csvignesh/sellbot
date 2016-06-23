@@ -313,7 +313,7 @@ function showExtractedAspects(senderID, sessionId) {
       id: senderID
     },
     message: {
-      attachment: {
+      attachment:{
         type: "template",
         payload: {
           template_type: "generic",
