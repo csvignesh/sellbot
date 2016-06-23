@@ -204,6 +204,7 @@ app.post('/webhook', function (req, res) {
           if (messagingEvent.message.attachments) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
+              console.log(attachment.payload.url);
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
                 var templates = [];
                 var current = 0;
