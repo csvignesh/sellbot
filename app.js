@@ -327,8 +327,36 @@ function showExtractedAspects(senderID, sessionId) {
       }
     }
   };
-  sendGenericMessage(senderID);
-  //callSendAPI(messageData);
+  messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Ebay Selling",
+            subtitle: "Ebay Selling bot",
+            item_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
+            image_url: "http://i.ebayimg.com/images/g/Kq8AAOSwfC9XOWrg/s-l400.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "https://www.oculus.com/en-us/rift/",
+              title: "Open Web URL"
+            }, {
+              type: "postback",
+              title: "Call Postback",
+              payload: "Payload for first bubble"
+            }]
+          }]
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
   //sendTextMessage(senderID, '123123');
 }
 
