@@ -254,6 +254,7 @@ app.post('/webhook', function (req, res) {
                 });
               }
             } else {
+              sendImageMessage(sender);
               res.sendStatus(200);
                 //runWit(messagingEvent.message.text, sessionId, (context) => {
                 //  var buttons = [];
