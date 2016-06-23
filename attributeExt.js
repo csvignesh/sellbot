@@ -10,7 +10,7 @@ module.exports = {
             }
         }, function (err, response, body) {
             if (err) {
-                console.error('upload failed:');
+                console.error(err);
                 cb(err);
             } else if (!err && response.statusCode == 200) {
                 console.log(body);
