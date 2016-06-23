@@ -307,6 +307,7 @@ function sendPriceRecoMessage(title, subtitle, senderID) {
           elements: [{
             title: title,
             subtitle: subtitle,
+            image_url: "https://travelingwithwheels.files.wordpress.com/2014/03/rec.jpg",
             buttons: [{
               type: "postback",
               title: 'Accept',
