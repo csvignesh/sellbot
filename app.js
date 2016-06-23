@@ -232,9 +232,6 @@ app.post('/webhook', function (req, res) {
             }
           } else {
             if (messagingEvent.message.text.toLowerCase() === 'bot') {
-              require('./price_reco').getPriceReco('apple iphone 5s', 9355, 'new', (data) => {
-                console.log(data);
-              });
               // reset context
               sessions[sessionId].context = {};
               sendWelcomeMessage(sender);
@@ -561,7 +558,10 @@ function receivedPostback(event, sessionId) {
           title = title + aspects[key];
         }
       });
-      console.log(title, condition, caty);
+
+      require('./price_reco').getPriceReco(title, caty, condition, (data) => {
+        console.log(data);
+      });
     }
   } else {
       // When a postback is called, we'll send a message back to the sender to
