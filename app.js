@@ -587,8 +587,8 @@ function receivedPostback(event, sessionId) {
       });
 
       require('./price_reco').getPriceReco(title, caty, condition, (data) => {
-        var title = data.binPrice.shortMessage;
-        var subTitle = data.binPrice.guidanceMessage;
+        var title = data.binPrice.shortMessage + data.binPrice.guidanceData.currency;
+        var subTitle = 'This recommendation is ';
         sendPriceRecoMessage(title, subTitle, senderID)
       });
     }
