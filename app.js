@@ -301,7 +301,6 @@ function sendPriceRecoMessage(title, subtitle, senderID) {
     recipient: {
       id: senderID
     },
-
     message: {
       attachment: {
         type: "template",
