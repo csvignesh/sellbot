@@ -538,6 +538,8 @@ function receivedPostback(event, sessionId) {
     var leaf = payload.split(('_')).pop();
     sessions[sessionId].context.leafCaty = leaf;
     sendEnterDescMsg(senderID);
+  } else if (payload.indexOf('aspect_') === 0) {
+    showExtractedAspects(senderID, sessionId);
   } else {
       // When a postback is called, we'll send a message back to the sender to
       // let them know it was successful
