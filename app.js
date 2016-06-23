@@ -246,6 +246,9 @@ app.post('/webhook', function (req, res) {
               } else {
                 //this is the desc usecase
                 sessions[sessionId].context.desc = messagingEvent.message.text;
+                require('./attributeExt').getAspectDetails('title', () => {
+                  console.log('done');
+                });
                 console.log(messagingEvent.message.text);
                 res.sendStatus(200);
               }
