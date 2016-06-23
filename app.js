@@ -549,7 +549,19 @@ function receivedPostback(event, sessionId) {
       showExtractedAspects(senderID, sessionId);
     } else {
       //recommend price
-      console.log(sessions[sessionId].context.aspectsMap.selected);
+      var aspects = sessions[sessionId].context.aspectsMap.selected;
+      var title = '';
+      var condition = '';
+      var caty = sessions[sessionId].context.leafCaty;
+      Object.keys(aspects).forEach((key) => {
+        if (key.toLowerCase() === 'condition') {
+          condition = aspects[key];
+        } else {
+          title = title ? title + ' ' : title;
+          title = title + aspects[key];
+        }
+      });
+      console.log(title, condition, caty);
     }
   } else {
       // When a postback is called, we'll send a message back to the sender to
