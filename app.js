@@ -903,14 +903,7 @@ function sendReceiptMessage(data, recipientId) {
             shipping_cost: 20.00,
             total_tax: 57.67,
             total_cost: 626.66
-          },
-          adjustments: [{
-            name: "New Customer Discount",
-            amount: -50
-          }, {
-            name: "$100 Off Coupon",
-            amount: -100
-          }]
+          }
         }
       }
     }
