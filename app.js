@@ -888,7 +888,7 @@ function sendReceiptMessage(data, recipientId) {
             quantity: 1,
             price: 599.00,
             currency: "USD",
-            image_url: "http://messengerdemo.parseapp.com/img/riftsq.png"
+            image_url: data.imgUrl
           }],
           address: {
             street_1: "1 Hacker Way",
