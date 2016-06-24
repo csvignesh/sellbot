@@ -884,9 +884,9 @@ function sendReceiptMessage(data, recipientId) {
           timestamp: "1428444852",
           elements: [{
             title: data.title,
-            subtitle: "Includes: headset, sensor, remote",
+            subtitle: data.desc,
             quantity: 1,
-            price: 599.00,
+            price: data.price,
             currency: "USD",
             image_url: data.imgUrl
           }],
