@@ -271,10 +271,10 @@ app.post('/webhook', function (req, res) {
                     "Style": "Boot Cut"
                   },
                   "unselected": {},
-                  "aspectsNotFilled": [],
-                  "title": "Levis Regular 27 Boot Cut",
-                  "price": "8.5"
-                }
+                },
+                "aspectsNotFilled": [],
+                "title": "Levis Regular 27 Boot Cut",
+                "price": "8.5"
               };
 
               require('./lds_publish')(input, (data) => {
