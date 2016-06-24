@@ -1,3 +1,5 @@
+var request = require("request");
+
 module.exports = {
     publish: function(data) {
         var formData = {
@@ -21,7 +23,7 @@ module.exports = {
             });
         });
 
-        request.post({url:'http://seewiw.ebay.com/ldscreate', form: formData}, function optionalCallback(err, body) {
+        request.post({url:'http://seewiw.ebay.com/ldscreate', form: formData}, (err, body) => {
             console.log(err, body);
             if (err) {
                 console.error('upload failed:');
