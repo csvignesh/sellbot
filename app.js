@@ -258,29 +258,6 @@ app.post('/webhook', function (req, res) {
                 });
               }
             } else {
-              var input = {
-                "imgUrl": "https://scontent.xx.fbcdn.net/v/t34.0-12/13522410_10205179318282342_1841389224_n.jpg?_nc_ad=z-m&oh=3e8fb60b24d1b0545bcf8cccab0bf4a1&oe=576EB38E",
-                "leafCaty": "11483",
-                "desc": "Levis",
-                "aspectsMap": {
-                  "selected": {
-                    "Brand": "Levi's",
-                    "Size Type": "Regular",
-                    "Condition": "Pre-owned",
-                    "Inseam": "27",
-                    "Style": "Boot Cut"
-                  },
-                  "unselected": {},
-                },
-                "aspectsNotFilled": [],
-                "title": "Levis Regular 27 Boot Cut",
-                "price": "8.5"
-              };
-
-              require('./lds_publish')(input, (data) => {
-                console.log(data.body);
-              });
-
               sendImageMessage(sender);
               res.sendStatus(200);
                 //runWit(messagingEvent.message.text, sessionId, (context) => {
@@ -640,14 +617,37 @@ function receivedPostback(event, sessionId) {
     sessions[sessionId].context.price = price;
     console.log(sessions[sessionId].context);
     require('./lds_publish')(sessions[sessionId].context, (data) => {
-      console.log(1);
+      sendReceiptMessage(sessions[sessionId].context, senderID);
+      sendDoneMsg(data, senderID);
+      console.log(data);
     });
-    sendReceiptMessage(sessions[sessionId].context, senderID);
   }else {
       // When a postback is called, we'll send a message back to the sender to
       // let them know it was successful
       sendTextMessage(senderID, "Postback mapping not found");
   }
+}
+
+function sendDoneMsg(url, recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Your Item has been listed on eBay",
+            subtitle: url
+          }]
+        }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
 }
 
 /*
