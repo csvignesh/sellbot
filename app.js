@@ -880,7 +880,7 @@ function sendReceiptMessage(data, recipientId) {
           recipient_name: "Within USA",
           order_number: receiptId,
           currency: "USD",
-          payment_method: "",
+          payment_method: " ",
           timestamp: "1428444852",
           elements: [{
             title: data.title,
