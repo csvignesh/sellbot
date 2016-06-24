@@ -204,7 +204,8 @@ app.post('/webhook', function (req, res) {
           if (messagingEvent.message.attachments) {
             var attachment = messagingEvent.message.attachments[0];
             if (isAttachmentImage(attachment)) {
-              console.log(attachment.payload.url);
+              sessions[sessionId].context.imgUrl = attachment.payload.url
+              console.log(sessions[sessionId].context.imgUrl);
               require('./img_reco').getCategory(attachment.payload.url, (data) => {
                 var templates = [];
                 var current = 0;
@@ -593,6 +594,7 @@ function receivedPostback(event, sessionId) {
         }
       });
 
+      sessions[sessionId].context.title = title;
       console.log(title, caty, condition);
       require('./price_reco').getPriceReco(title, caty, condition, (data) => {
         var title = data.binPrice.shortMessage + data.binPrice.guidanceData.currency;
@@ -602,7 +604,7 @@ function receivedPostback(event, sessionId) {
     }
   } else if (payload.indexOf('price_reco_accepted_') === 0) {
     var price = payload.split('_').pop();
-    console.log('Price:' + price);
+    sessions[sessionId].context.price = price;
     console.log(sessions[sessionId].context);
     sendReceiptMessage(senderID);
   }else {
@@ -843,7 +845,7 @@ function sendWelcomeMessage(recipientId) {
  * Send a receipt message using the Send API.
  *
  */
-function sendReceiptMessage(recipientId) {
+function sendReceiptMessage(data, recipientId) {
   // Generate a random receipt ID as the API requires a unique ID
   var receiptId = "order" + Math.floor(Math.random()*1000);
 
@@ -856,25 +858,18 @@ function sendReceiptMessage(recipientId) {
         type: "template",
         payload: {
           template_type: "receipt",
-          recipient_name: "Peter Chang",
+          recipient_name: "vics",
           order_number: receiptId,
           currency: "USD",
-          payment_method: "Visa 1234",        
+          payment_method: "Visa 1234",
           timestamp: "1428444852", 
           elements: [{
-            title: "Oculus Rift",
-            subtitle: "Includes: headset, sensor, remote",
+            title: data.title,
+            subtitle: data.desc,
             quantity: 1,
-            price: 599.00,
+            price: data.price,
             currency: "USD",
-            image_url: "http://messengerdemo.parseapp.com/img/riftsq.png"
-          }, {
-            title: "Samsung Gear VR",
-            subtitle: "Frost White",
-            quantity: 1,
-            price: 99.99,
-            currency: "USD",
-            image_url: "http://messengerdemo.parseapp.com/img/gearvrsq.png"
+            image_url: data.imgUrl
           }],
           address: {
             street_1: "1 Hacker Way",
