@@ -21,6 +21,14 @@ module.exports = function(data, cb) {
             value: data.aspectsMap.selected[aspectName]
         });
     });
+
+    if(formData.category === '11483') {
+        formData.itemSpecific.push({
+            name: 'Bottoms Size (Men\'s)',
+            value: '28'
+        });
+    }
+
 console.log(JSON.stringify((formData)));
 
     request.post({url:'http://seewiw.ebay.com/ldscreate', form: formData}, (err, body) => {
