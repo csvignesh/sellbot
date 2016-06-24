@@ -616,7 +616,7 @@ function receivedPostback(event, sessionId) {
     var price = payload.split('_').pop();
     sessions[sessionId].context.price = price;
     console.log(sessions[sessionId].context);
-    require('lds-publish').publish((data) => {
+    require('./lds-publish').publish((sessions[sessionId].context) => {
 
     });
     sendReceiptMessage(sessions[sessionId].context, senderID);
