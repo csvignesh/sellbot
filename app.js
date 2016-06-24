@@ -901,7 +901,7 @@ function sendReceiptMessage(data, recipientId) {
           summary: {
             subtotal: Number(data.price),
             shipping_cost: 5.00,
-            total_cost: 626.66
+            total_cost: Number(data.price) + 5
           }
         }
       }
