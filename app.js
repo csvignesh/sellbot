@@ -371,16 +371,6 @@ function showExtractedAspects(senderID, sessionId) {
     }
   };
 
-  message: {
-    attachment: {
-      type: "template",
-          payload: {
-        template_type: "generic",
-            elements: templates
-      }
-    }
-  }
-
   callSendAPI(messageData);
   //sendTextMessage(senderID, '123123');
 }
