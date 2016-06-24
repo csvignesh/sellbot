@@ -38,8 +38,8 @@ console.log(JSON.stringify((formData)));
             cb(err);
         } else {
             console.log('Upload successful!  Server responded with');
-            shareUrl.replace(new RegExp('{1}', 'g'), body.itemId);
-            shareUrl.replace(new RegExp('{2}', 'g'), formData.title);
+            shareUrl = shareUrl.split('{1}').join(body.itemId);
+            shareUrl = shareUrl.split('{2}').join(formData.title);
             cb(shareUrl);
         }
     });
