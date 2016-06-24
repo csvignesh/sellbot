@@ -344,7 +344,7 @@ function showExtractedAspects(senderID, sessionId) {
       });
     }
 
-console.log(index, aspectVals.lastIndexOf());
+    console.log(index, aspectVals.lastIndexOf());
     if (buttons.length === 3 || index === aspectVals.lastIndexOf()) {
       elements.push({
           title: (count > 0 ? 'more ' : '') + aspectToFill,
