@@ -278,7 +278,7 @@ app.post('/webhook', function (req, res) {
               };
 
               require('./lds_publish')(input, (data) => {
-                console.log(data);
+                console.log(data.body);
               });
 
               sendImageMessage(sender);
