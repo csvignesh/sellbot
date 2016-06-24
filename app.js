@@ -633,6 +633,7 @@ function sendDoneMsg(imgUrl, url, recipientId) {
     recipient: {
       id: recipientId
     },
+
     message: {
       attachment: {
         type: "template",
