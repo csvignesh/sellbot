@@ -878,23 +878,17 @@ function sendReceiptMessage(data, recipientId) {
         payload: {
           template_type: "receipt",
           recipient_name: "Vics",
+          order_number: receiptId,
           currency: "USD",
           payment_method: "Visa 1234",
           timestamp: "1428444852",
           elements: [{
-            title: "Oculus Rift",
+            title: data.title,
             subtitle: "Includes: headset, sensor, remote",
             quantity: 1,
             price: 599.00,
             currency: "USD",
             image_url: "http://messengerdemo.parseapp.com/img/riftsq.png"
-          }, {
-            title: "Samsung Gear VR",
-            subtitle: "Frost White",
-            quantity: 1,
-            price: 99.99,
-            currency: "USD",
-            image_url: "http://messengerdemo.parseapp.com/img/gearvrsq.png"
           }],
           address: {
             street_1: "1 Hacker Way",
