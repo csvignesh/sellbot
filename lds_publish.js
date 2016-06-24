@@ -37,7 +37,7 @@ console.log(JSON.stringify((formData)));
             console.error('upload failed: 123');
             cb(err);
         } else {
-            console.log('Upload successful!  Server responded with');
+            console.log('Upload successful! Server responded with');
             console.log(body);
             shareUrl = shareUrl.split('{1}').join(body.itemId);
             shareUrl = shareUrl.split('{2}').join(formData.title);
