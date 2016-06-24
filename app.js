@@ -876,54 +876,48 @@ function sendReceiptMessage(data, recipientId) {
       attachment: {
         type: "template",
         payload: {
-          "recipient_name": "Stephane Crozatier",
-          "order_number": "12345678902",
-          "currency": "USD",
-          "payment_method": "Visa 2345",
-          "order_url": "http://petersapparel.parseapp.com/order?order_id=123456",
-          "timestamp": "1428444852",
-          "elements": [
-            {
-              "title": "Classic White T-Shirt",
-              "subtitle": "100% Soft and Luxurious Cotton",
-              "quantity": 2,
-              "price": 50,
-              "currency": "USD",
-              "image_url": "http://petersapparel.parseapp.com/img/whiteshirt.png"
-            },
-            {
-              "title": "Classic Gray T-Shirt",
-              "subtitle": "100% Soft and Luxurious Cotton",
-              "quantity": 1,
-              "price": 25,
-              "currency": "USD",
-              "image_url": "http://petersapparel.parseapp.com/img/grayshirt.png"
-            }
-          ],
-          "address": {
-            "street_1": "1 Hacker Way",
-            "street_2": "",
-            "city": "Menlo Park",
-            "postal_code": "94025",
-            "state": "CA",
-            "country": "US"
+          template_type: "receipt",
+          recipient_name: "Peter Chang",
+          order_number: receiptId,
+          currency: "USD",
+          payment_method: "Visa 1234",
+          timestamp: "1428444852",
+          elements: [{
+            title: "Oculus Rift",
+            subtitle: "Includes: headset, sensor, remote",
+            quantity: 1,
+            price: 599.00,
+            currency: "USD",
+            image_url: "http://messengerdemo.parseapp.com/img/riftsq.png"
+          }, {
+            title: "Samsung Gear VR",
+            subtitle: "Frost White",
+            quantity: 1,
+            price: 99.99,
+            currency: "USD",
+            image_url: "http://messengerdemo.parseapp.com/img/gearvrsq.png"
+          }],
+          address: {
+            street_1: "1 Hacker Way",
+            street_2: "",
+            city: "Menlo Park",
+            postal_code: "94025",
+            state: "CA",
+            country: "US"
           },
-          "summary": {
-            "subtotal": 75.00,
-            "shipping_cost": 4.95,
-            "total_tax": 6.19,
-            "total_cost": 56.14
+          summary: {
+            subtotal: 698.99,
+            shipping_cost: 20.00,
+            total_tax: 57.67,
+            total_cost: 626.66
           },
-          "adjustments": [
-            {
-              "name": "New Customer Discount",
-              "amount": 20
-            },
-            {
-              "name": "$10 Off Coupon",
-              "amount": 10
-            }
-          ]
+          adjustments: [{
+            name: "New Customer Discount",
+            amount: -50
+          }, {
+            name: "$100 Off Coupon",
+            amount: -100
+          }]
         }
       }
     }
