@@ -618,7 +618,7 @@ function receivedPostback(event, sessionId) {
     console.log(sessions[sessionId].context);
     require('./lds_publish')(sessions[sessionId].context, (data) => {
       sendReceiptMessage(sessions[sessionId].context, senderID);
-      sendDoneMsg(data, senderID);
+      sendDoneMsg(sessions[sessionId].context.imgUrl, data, senderID);
       console.log(data);
     });
   }else {
@@ -628,7 +628,7 @@ function receivedPostback(event, sessionId) {
   }
 }
 
-function sendDoneMsg(url, recipientId) {
+function sendDoneMsg(imgUrl, url, recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -640,7 +640,9 @@ function sendDoneMsg(url, recipientId) {
           template_type: "generic",
           elements: [{
             title: "Your Item has been listed on eBay",
-            subtitle: url
+            subtitle: url,
+            item_url: url
+            image_url: imgUrl
           }]
         }
       }
