@@ -249,9 +249,10 @@ app.post('/webhook', function (req, res) {
                 var leafCaty = sessions[sessionId].context.leafCaty;
                 require('./attributeExt').getAspectDetails(desc, leafCaty, (aspectData) => {
                   console.log(aspectData);
+                  delete aspectData.selected.MPN;
+                  delete aspectData.unselected.MPN;
                   sessions[sessionId].context.aspectsMap = aspectData;
                   sessions[sessionId].context.aspectsNotFilled = Object.keys(aspectData.unselected);
-                  delete sessions[sessionId].context.aspectsNotFilled.MPN;
                   showExtractedAspects(sender, sessionId);
                   res.sendStatus(200);
                 });
