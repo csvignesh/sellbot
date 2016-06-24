@@ -251,6 +251,7 @@ app.post('/webhook', function (req, res) {
                   console.log(aspectData);
                   sessions[sessionId].context.aspectsMap = aspectData;
                   sessions[sessionId].context.aspectsNotFilled = Object.keys(aspectData.unselected);
+                  delete sessions[sessionId].context.aspectsNotFilled.MPN;
                   showExtractedAspects(sender, sessionId);
                   res.sendStatus(200);
                 });
