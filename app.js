@@ -899,9 +899,8 @@ function sendReceiptMessage(data, recipientId) {
             country: "US"
           },
           summary: {
-            subtotal: 698.99,
-            shipping_cost: 20.00,
-            total_tax: 57.67,
+            subtotal: Number(data.price),
+            shipping_cost: 5.00,
             total_cost: 626.66
           }
         }
