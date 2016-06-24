@@ -206,7 +206,7 @@ app.post('/webhook', function (req, res) {
             if (isAttachmentImage(attachment)) {
               sessions[sessionId].context.imgUrl = attachment.payload.url
               console.log(sessions[sessionId].context.imgUrl);
-              require('./img_reco').getCategory(attachment.payload.url, (data) => {
+              require('./img_recoWithLocalImage').getCategory(attachment.payload.url, (data) => {
                 var templates = [];
                 var current = 0;
                 data.forEach((caty) => {

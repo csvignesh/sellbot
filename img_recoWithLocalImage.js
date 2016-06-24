@@ -25,16 +25,15 @@ module.exports = {
             request.post({url:'http://ai-vision-2116658668.us-west-1.elb.amazonaws.com/recognize', formData: formData}, function optionalCallback(err, httpResponse, body) {
                 if (err) {
                     console.error('upload failed:');
-                    //cb(err);
+                    cb(err);
                 } else {
-                    //console.log('Upload successful!  Server responded with');
+                    console.log('Upload successful!  Server responded with');
                     var data = JSON.parse(body);
                     var catys = [];
                     data.imageEntities.entities.forEach((suggestedCaty) => {
                         catys.push(suggestedCaty);
                     });
-                    console.log('Upload successful!  Server responded with' + JSON.stringify(catys));
-                    //cb(catys);
+                    cb(catys);
                 }
             });
         });
