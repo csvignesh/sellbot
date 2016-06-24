@@ -332,7 +332,8 @@ function sendPriceRecoMessage(title, subtitle, price, senderID) {
 function showExtractedAspects(senderID, sessionId) {
   var aspectToFill = sessions[sessionId].context.aspectsNotFilled.shift();
   var aspectVals = sessions[sessionId].context.aspectsMap.unselected[aspectToFill];
-  var buttons = [];
+  var buttons = [], elements = [];
+  var count = 0;
 
   aspectVals.forEach((val) => {
     if (buttons.length < 3) {
@@ -341,6 +342,15 @@ function showExtractedAspects(senderID, sessionId) {
         title: val,
         payload: "aspect_" + aspectToFill + "_" + val
       });
+    } else {
+      elements.push({
+          title: (count > 0 ? 'more ' : '') + aspectToFill,
+          subtitle: (count === 0 ? "pick item's property" : ""),
+          buttons: buttons
+      });
+
+      buttons = [];
+      count = count + 1;
     }
   });
 
@@ -355,15 +365,21 @@ function showExtractedAspects(senderID, sessionId) {
         type: "template",
         payload: {
           template_type: "generic",
-          elements: [{
-            title: aspectToFill,
-            subtitle: "pick item's property",
-            buttons: buttons
-          }]
+          elements: elements
         }
       }
     }
   };
+
+  message: {
+    attachment: {
+      type: "template",
+          payload: {
+        template_type: "generic",
+            elements: templates
+      }
+    }
+  }
 
   callSendAPI(messageData);
   //sendTextMessage(senderID, '123123');
