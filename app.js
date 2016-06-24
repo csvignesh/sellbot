@@ -343,6 +343,7 @@ function showExtractedAspects(senderID, sessionId) {
         payload: "aspect_" + aspectToFill + "_" + val
       });
     }
+
 console.log(index, aspectVals.lastIndexOf());
     if (buttons.length === 3 || index === aspectVals.lastIndexOf()) {
       elements.push({
