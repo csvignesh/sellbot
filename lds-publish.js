@@ -25,7 +25,7 @@ module.exports = {
 
         request.post({url:'http://seewiw.ebay.com/ldscreate', form: formData}, (err, body) => {
             if (err) {
-                console.error('upload failed:');
+                console.error('upload failed: 123');
                 cb(err);
             } else {
                 console.log('Upload successful!  Server responded with');
