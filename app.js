@@ -335,14 +335,16 @@ function showExtractedAspects(senderID, sessionId) {
   var buttons = [], elements = [];
   var count = 0;
 
-  aspectVals.forEach((val) => {
+  aspectVals.forEach((val, index) => {
     if (buttons.length < 3) {
       buttons.push({
         type: "postback",
         title: val,
         payload: "aspect_" + aspectToFill + "_" + val
       });
-    } else {
+    }
+
+    if (buttons.length === 3 || index === aspectVals.lastIndexOf()) {
       elements.push({
           title: (count > 0 ? 'more ' : '') + aspectToFill,
           subtitle: (count === 0 ? "pick item's property" : ""),
