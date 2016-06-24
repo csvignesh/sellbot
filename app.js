@@ -862,7 +862,7 @@ function sendWelcomeMessage(recipientId) {
               "title": "Hi! eBay Sell Bot at your service!",
               "item_url": "http://www.ebay.com/sl/sell",
               "image_url": "http://i.imgur.com/hhJyaHA.png",
-              "subtitle": "I can help you sell fast",
+              "subtitle": "I can help you sell fast ",
               "buttons": [
                 {
                   "type": "postback",
