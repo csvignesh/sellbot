@@ -642,7 +642,7 @@ function sendDoneMsg(imgUrl, url, recipientId) {
           elements: [{
             title: "Your Item has been listed on eBay",
             subtitle: url,
-            item_url: url
+            item_url: url,
             image_url: imgUrl
           }]
         }
