@@ -277,7 +277,7 @@ app.post('/webhook', function (req, res) {
                 }
               };
 
-              require('./lds_publish')(input)((data) => {
+              require('./lds_publish')(input, (data) => {
                 console.log(1);
               });
 
@@ -639,7 +639,7 @@ function receivedPostback(event, sessionId) {
     var price = payload.split('_').pop();
     sessions[sessionId].context.price = price;
     console.log(sessions[sessionId].context);
-    require('./lds_publish')(sessions[sessionId].context)((data) => {
+    require('./lds_publish')(sessions[sessionId].context, (data) => {
       console.log(1);
     });
     sendReceiptMessage(sessions[sessionId].context, senderID);
