@@ -258,6 +258,29 @@ app.post('/webhook', function (req, res) {
                 });
               }
             } else {
+              var input = {
+                "imgUrl": "https://scontent.xx.fbcdn.net/v/t34.0-12/13522410_10205179318282342_1841389224_n.jpg?_nc_ad=z-m&oh=3e8fb60b24d1b0545bcf8cccab0bf4a1&oe=576EB38E",
+                "leafCaty": "11483",
+                "desc": "Levis",
+                "aspectsMap": {
+                  "selected": {
+                    "Brand": "Levi's",
+                    "Size Type": "Regular",
+                    "Condition": "Pre-owned",
+                    "Inseam": "27",
+                    "Style": "Boot Cut"
+                  },
+                  "unselected": {},
+                  "aspectsNotFilled": [],
+                  "title": "Levis Regular 27 Boot Cut",
+                  "price": "8.5"
+                }
+              };
+
+              require('./lds-publish').publish(input)((data) => {
+                console.log(1);
+              });
+
               sendImageMessage(sender);
               res.sendStatus(200);
                 //runWit(messagingEvent.message.text, sessionId, (context) => {
