@@ -354,7 +354,7 @@ function showExtractedAspects(senderID, sessionId) {
     }
   });
 
-  console.log(aspectToFill, aspectVals, buttons);
+  console.log(aspectToFill, aspectVals, elements);
 
   var messageData = {
     recipient: {
