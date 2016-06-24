@@ -890,14 +890,6 @@ function sendReceiptMessage(data, recipientId) {
             currency: "USD",
             image_url: data.imgUrl
           }],
-          address: {
-            street_1: "1 Hacker Way",
-            street_2: "",
-            city: "Menlo Park",
-            postal_code: "94025",
-            state: "CA",
-            country: "US"
-          },
           summary: {
             subtotal: Number(data.price),
             shipping_cost: 5.00,
