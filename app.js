@@ -256,25 +256,6 @@ app.post('/webhook', function (req, res) {
                 });
               }
             } else {
-              sendReceiptMessage({
-                "imgUrl": "https://scontent.xx.fbcdn.net/v/t34.0-12/13530227_10205178218214841_606615384_n.jpg?_nc_ad=z-m&oh=fac61c11fedc4653ed732ec0fe8096b5&oe=576EF2FA",
-                "leafCaty": "117387",
-                "desc": "mason jar sipper",
-                "aspectsMap": {
-                  "selected": {
-                    "MPN": "Does Not Apply",
-                    "Condition": "New",
-                    "Brand": "NUK"
-                  },
-                  "unselected": {
-                    "Condition": [],
-                    "Brand": []
-                  }
-                },
-                "aspectsNotFilled": [],
-                "title": "Does Not Apply NUK",
-                "price": "3.5"
-              }, sender);
               sendImageMessage(sender);
               res.sendStatus(200);
                 //runWit(messagingEvent.message.text, sessionId, (context) => {
