@@ -21,6 +21,7 @@ module.exports = function(data, cb) {
             value: data.aspectsMap.selected[aspectName]
         });
     });
+console.log(JSON.stringify((formData)));
 
     request.post({url:'http://seewiw.ebay.com/ldscreate', form: formData}, (err, body) => {
         if (err) {
