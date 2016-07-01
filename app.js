@@ -240,7 +240,7 @@ app.post('/webhook', function (req, res) {
               res.sendStatus(200);
             } else if (sessions[sessionId].context.leafCaty) {
               if (sessions[sessionId].context.desc) {
-                console.log(sessions[sessionId].context.desc, 'nothing to do!!');
+                console.log(sessions[sessionId].context.desc, 'nothing to do!!!');
                 res.sendStatus(200);
               } else {
                 //this is the desc usecase
@@ -836,7 +836,7 @@ function sendClickPicMsg(recipientId) {
         payload: {
           template_type: "generic",
           elements: [{
-            title: "Send me a picture of your item",
+            title: "Send me a picture of your item ",
             subtitle: "Or enter a title eg. sell my Samsung Galaxy 6"
           }]
         }
