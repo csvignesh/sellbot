@@ -244,6 +244,7 @@ app.post('/webhook', function (req, res) {
                 res.sendStatus(200);
               } else {
                 //this is the desc usecase
+                console.log('getting aspects');
                 sessions[sessionId].context.desc = messagingEvent.message.text;
                 var desc = sessions[sessionId].context.desc;
                 var leafCaty = sessions[sessionId].context.leafCaty;
